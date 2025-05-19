@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>80/20 Money System - Chapter 5 Debt Elimination Tools</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        h1, h2, h3, h4 {
+            color: var(--dark);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 15px;
+        }
+        h2 {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+            font-size: 1.4em;
+        }
+        h3 {
+            border-left: 4px solid var(--secondary);
+            padding-left: 10px;
+            margin-top: 25px;
+        }
+        .tool-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 0.95em;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 10px 0;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button.secondary {
+            background-color: var(--secondary);
+        }
+        button.danger {
+            background-color: var(--danger);
+        }
+        button.warning {
+            background-color: var(--warning);
+        }
+        .result {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+        }
+        .tab button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            transition: 0.3s;
+            font-size: 1em;
+            flex: 1;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .tabcontent {
+            display: none;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            background-color: white;
+            animation: fadeEffect 0.5s;
+        }
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: white;
+            margin-right: 5px;
+        }
+        .badge-anchor {
+            background-color: #8e44ad;
+        }
+        .badge-freedom {
+            background-color: var(--secondary);
+        }
+        .badge-toxic {
+            background-color: var(--danger);
+        }
+        .badge-emotional {
+            background-color: #9b59b6;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .progress-bar {
+            height: 20px;
+            border-radius: 5px;
+            background-color: var(--primary);
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            line-height: 20px;
+            font-size: 0.8em;
+            transition: width 0.5s;
+        }
+        .debt-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        .debt-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .strategy-card {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        .strategy-card h4 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+        .accordion {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-weight: 600;
+            border-radius: 5px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion:after {
+            content: '\002B';
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-left: 5px;
+        }
+        .active-accordion:after {
+            content: '\2212';
+        }
+        .accordion:hover {
+            background-color: #e9ecef;
+        }
+        .panel {
+            padding: 0 15px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-radius: 0 0 5px 5px;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .tool-container {
+                padding: 15px;
+            }
+            .tab button {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>80/20 Money System - Chapter 5 Debt Elimination Tools</h1>
+    <p class="highlight" style="text-align: center; padding: 15px; max-width: 800px; margin: 0 auto 30px;">The Hybrid Debt Elimination Strategy combines the mathematical efficiency of the avalanche method with the psychological wins of the snowball method to accelerate your path to debt freedom.</p>
+    
+    <div class="tab">
+        <button class="tablinks active" onclick="openTool(event, 'inventory')">Debt Inventory</button>
+        <button class="tablinks" onclick="openTool(event, 'sequence')">Targeting Sequence</button>
+        <button class="tablinks" onclick="openTool(event, 'acceleration')">Acceleration Guide</button>
+    </div>
+
+    <!-- Strategic Debt Inventory Tool -->
+    <div id="inventory" class="tabcontent" style="display: block;">
+        <div class="tool-container">
+            <h2>Strategic Debt Inventory</h2>
+            <p>List and categorize all your debts to understand your complete debt landscape. The 80/20 system categorizes debts into four types for optimal payoff strategy.</p>
+            
+            <div class="section">
+                <h3>Your Debt Portfolio</h3>
+                <table id="debtTable">
+                    <thead>
+                        <tr>
+                            <th>Debt Name</th>
+                            <th>Type</th>
+                            <th>Balance</th>
+                            <th>Interest Rate</th>
+                            <th>Min Payment</th>
+                            <th>Emotional Weight (1-10)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" placeholder="e.g., Chase Visa"></td>
+                            <td>
+                                <select class="debt-type">
+                                    <option value="anchor">Anchor Debt</option>
+                                    <option value="freedom">Freedom Debt</option>
+                                    <option value="toxic">Toxic Debt</option>
+                                    <option value="emotional">Emotional Debt</option>
+                                </select>
+                            </td>
+                            <td><input type="number" placeholder="0.00"></td>
+                            <td><input type="number" placeholder="0.00" step="0.01">%</td>
+                            <td><input type="number" placeholder="0.00"></td>
+                            <td>
+                                <select>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option selected>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                            </td>
+                            <td><button onclick="addDebtRow(this)" class="secondary">Add</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button onclick="analyzeDebts()" class="primary">Analyze My Debts</button>
+                
+                <div id="debtAnalysis" class="result" style="display: none;">
+                    <h4>Debt Portfolio Analysis</h4>
+                    <div class="progress-container">
+                        <div id="debtProgress" class="progress-bar" style="width: 0%">0%</div>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Total Debt</th>
+                            <td>$<span id="totalDebt">0.00</span></td>
+                        </tr>
+                        <tr>
+                            <th>Weighted Interest Rate</th>
+                            <td><span id="avgInterest">0.00</span>%</td>
+                        </tr>
+                        <tr>
+                            <th>Monthly Minimum Payments</th>
+                            <td>$<span id="totalMinPayments">0.00</span></td>
+                        </tr>
+                        <tr>
+                            <th>Debt-to-Income Ratio</th>
+                            <td><span id="dtiRatio">0.00</span>%</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="margin-top: 20px;">Debt Type Breakdown</h4>
+                    <div id="debtTypeCards"></div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Debt Type Definitions</h3>
+                <div class="debt-card">
+                    <h4><span class="badge badge-anchor">Anchor Debt</span> Large, long-term debts</h4>
+                    <p>Typically mortgages, large student loans, or auto loans. These have large balances with longer payoff horizons.</p>
+                    <p><strong>Strategy:</strong> Often maintained at minimum payments while focusing on other debt types first.</p>
+                </div>
+                
+                <div class="debt-card">
+                    <h4><span class="badge badge-freedom">Freedom Debt</span> Small, quick-win debts</h4>
+                    <p>Small credit cards, medical bills, or personal loans that can be eliminated quickly.</p>
+                    <p><strong>Strategy:</strong> Prioritize for early wins to build momentum and free up cash flow.</p>
+                </div>
+                
+                <div class="debt-card">
+                    <h4><span class="badge badge-toxic">Toxic Debt</span> High-interest, damaging debts</h4>
+                    <p>Payday loans, high-interest credit cards (18%+), or other financially destructive debts.</p>
+                    <p><strong>Strategy:</strong> Critical to eliminate quickly due to their disproportionate financial impact.</p>
+                </div>
+                
+                <div class="debt-card">
+                    <h4><span class="badge badge-emotional">Emotional Debt</span> Psychologically significant</h4>
+                    <p>Family loans, past-due obligations, or debts causing significant stress or relationship strain.</p>
+                    <p><strong>Strategy:</strong> May warrant prioritization regardless of financial factors due to psychological impact.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hybrid Targeting Sequence Tool -->
+    <div id="sequence" class="tabcontent">
+        <div class="tool-container">
+            <h2>Hybrid Targeting Sequence Calculator</h2>
+            <p>The 80/20 Hybrid Algorithm balances mathematical efficiency (interest rates) with psychological momentum (quick wins) to determine your optimal debt payoff order.</p>
+            
+            <div class="section">
+                <h3>Your Current Debts</h3>
+                <div id="debtListForSequence"></div>
+                
+                <div class="section">
+                    <label for="extraPayment">Additional Monthly Payment Available for Debt Elimination:</label>
+                    <input type="number" id="extraPayment" placeholder="Enter amount above minimum payments">
+                    
+                    <button onclick="calculateSequence()" class="primary">Calculate My Optimal Sequence</button>
+                </div>
+                
+                <div id="sequenceResult" class="result" style="display: none;">
+                    <h4>Recommended Hybrid Payoff Sequence</h4>
+                    <p>This sequence balances interest savings with psychological wins to maximize your debt elimination effectiveness.</p>
+                    
+                    <div id="payoffSequence"></div>
+                    
+                    <h4 style="margin-top: 20px;">Projected Payoff Timeline</h4>
+                    <div id="payoffTimeline"></div>
+                    
+                    <div class="strategy-card">
+                        <h4>Implementation Strategy</h4>
+                        <ol id="implementationSteps"></ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acceleration Strategy Guide -->
+    <div id="acceleration" class="tabcontent">
+        <div class="tool-container">
+            <h2>Debt Acceleration Strategy Guide</h2>
+            <p>Implement these four acceleration mechanisms to dramatically reduce your debt payoff timeline. The average user achieves 30-50% faster debt elimination using these strategies.</p>
+            
+            <div class="section">
+                <h3>Four Acceleration Methods</h3>
+                
+                <button class="accordion">1. Fixed Acceleration</button>
+                <div class="panel">
+                    <p>Consistent additional payments above minimums create steady progress.</p>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>Determine your monthly additional payment amount</li>
+                        <li>Set up automatic transfer 24-48 hours after payday</li>
+                        <li>Configure automatic payment to current target debt</li>
+                        <li>Increase amount by 1% each month (micro-increments)</li>
+                    </ol>
+                    <p><strong>Example:</strong> Adding $200/month to your target debt payment</p>
+                </div>
+                
+                <button class="accordion">2. Variable Acceleration</button>
+                <div class="panel">
+                    <p>Systematically capture irregular income to boost debt payments.</p>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>Create a "Debt Acceleration" savings account</li>
+                        <li>Establish capture rules for irregular income:
+                            <ul>
+                                <li>Tax refunds: 80% to debt, 20% to celebration/emergency</li>
+                                <li>Work bonuses: 70% to debt, 30% to other priorities</li>
+                                <li>Gifts: 50% to debt, 50% to discretionary</li>
+                                <li>Side hustle income: 90% to debt, 10% to sustainability</li>
+                            </ul>
+                        </li>
+                        <li>Set up automatic sweep from acceleration account to target debt</li>
+                    </ol>
+                    <p><strong>Example:</strong> Applying your $1,200 tax refund as an $960 extra debt payment</p>
+                </div>
+                
+                <button class="accordion">3. Expense-Reduction Acceleration</button>
+                <div class="panel">
+                    <p>Redirect saved expenses directly to debt elimination.</p>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>Identify expenses you can reduce or eliminate</li>
+                        <li>Calculate monthly savings from each reduction</li>
+                        <li>Set up automatic transfer of exact savings amount</li>
+                        <li>Schedule transfer for original expense due date</li>
+                        <li>Direct to current target debt</li>
+                    </ol>
+                    <p><strong>Example:</strong> Cutting $85/month cable bill → $85 extra debt payment</p>
+                </div>
+                
+                <button class="accordion">4. Cash Flow Acceleration</button>
+                <div class="panel">
+                    <p>When a debt is eliminated, redirect its entire payment to next debt.</p>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>When a debt is paid off, capture the entire minimum payment</li>
+                        <li>Add former minimum payment to acceleration funds</li>
+                        <li>Redirect full amount to next target debt</li>
+                        <li>Update tracking systems to reflect increased payment</li>
+                    </ol>
+                    <p><strong>Example:</strong> Eliminating a $75/month payment → adding $75 to next debt's payment</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Automation Setup Guide</h3>
+                <div class="strategy-card">
+                    <h4>Step 1: Set Up Automatic Minimum Payments</h4>
+                    <p>Ensure all minimum payments are automated to avoid late fees and maintain credit.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Step 2: Configure Additional Payment</h4>
+                    <p>Automate your calculated additional payment to target debt according to your Hybrid Sequence.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Step 3: Create Transaction Notifications</h4>
+                    <p>Set up alerts for all debt payments to verify execution and maintain awareness.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Step 4: Establish Progress Tracking</h4>
+                    <p>Create visual tracking system (chart, thermometer, etc.) to maintain motivation.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Step 5: Implement Milestone Celebrations</h4>
+                    <p>Plan small rewards for each debt elimination to reinforce positive behavior.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Debt Negotiation Scripts</h3>
+                <p>Use these proven scripts to reduce interest rates and settle debts:</p>
+                
+                <div class="strategy-card">
+                    <h4>Credit Card Interest Reduction Script</h4>
+                    <p><em>"Hello, I've been a customer since [year] and noticed I'm paying [current rate]% interest. I've received several offers from other cards for [lower rate]% and would prefer to stay with you. Can you match this lower rate?"</em></p>
+                    <p><strong>Success Rate:</strong> 68% with average reduction of 6.2 percentage points</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <h4>Medical Debt Settlement Script</h4>
+                    <p><em>"I'd like to discuss settling this medical bill. I can pay [40-60% of balance] as a lump sum if you can consider this payment in full. Is this something we can arrange?"</em></p>
+                    <p><strong>Success Rate:</strong> Average reduction of 43% when offering lump-sum payment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTool(evt, toolName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(toolName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // If opening sequence tab, ensure debts are loaded
+            if (toolName === 'sequence') {
+                loadDebtsForSequence();
+            }
+        }
+
+        // Debt Inventory Functions
+        let debts = [];
+        
+        function addDebtRow(button) {
+            const row = button.parentNode.parentNode;
+            const cells = row.getElementsByTagName("td");
+            
+            const debtName = cells[0].getElementsByTagName("input")[0].value;
+            const debtType = cells[1].getElementsByTagName("select")[0].value;
+            const balance = parseFloat(cells[2].getElementsByTagName("input")[0].value);
+            const interestRate = parseFloat(cells[3].getElementsByTagName("input")[0].value);
+            const minPayment = parseFloat(cells[4].getElementsByTagName("input")[0].value);
+            const emotionalWeight = parseInt(cells[5].getElementsByTagName("select")[0].value);
+            
+            if (!debtName || isNaN(balance) || isNaN(interestRate) || isNaN(minPayment)) {
+                alert("Please fill in all debt fields with valid values");
+                return;
+            }
+            
+            const debt = {
+                name: debtName,
+                type: debtType,
+                balance: balance,
+                interestRate: interestRate,
+                minPayment: minPayment,
+                emotionalWeight: emotionalWeight
+            };
+            
+            debts.push(debt);
+            
+            // Clear the input row
+            cells[0].getElementsByTagName("input")[0].value = '';
+            cells[2].getElementsByTagName("input")[0].value = '';
+            cells[3].getElementsByTagName("input")[0].value = '';
+            cells[4].getElementsByTagName("input")[0].value = '';
+            cells[5].getElementsByTagName("select")[0].value = '5';
+            
+            // Update button to remove
+            button.textContent = "Remove";
+            button.className = "danger";
+            button.onclick = function() {
+                const index = debts.findIndex(d => d.name === debtName);
+                if (index > -1) {
+                    debts.splice(index, 1);
+                }
+                row.remove();
+            };
+            
+            // Add new empty row
+            const newRow = row.cloneNode(true);
+            newRow.querySelector("button").textContent = "Add";
+            newRow.querySelector("button").className = "secondary";
+            newRow.querySelector("button").onclick = function() { addDebtRow(this); };
+            row.parentNode.appendChild(newRow);
+        }
+        
+        function analyzeDebts() {
+            if (debts.length === 0) {
+                alert("Please add at least one debt to analyze");
+                return;
+            }
+            
+            let totalDebt = 0;
+            let totalInterest = 0;
+            let totalMinPayments = 0;
+            
+            // Calculate totals
+            debts.forEach(debt => {
+                totalDebt += debt.balance;
+                totalInterest += debt.balance * debt.interestRate;
+                totalMinPayments += debt.minPayment;
+            });
+            
+            const avgInterest = (totalInterest / totalDebt).toFixed(2);
+            
+            // Display results
+            document.getElementById("totalDebt").textContent = totalDebt.toFixed(2);
+            document.getElementById("avgInterest").textContent = avgInterest;
+            document.getElementById("totalMinPayments").textContent = totalMinPayments.toFixed(2);
+            
+            // Calculate DTI ratio (simplified)
+            const monthlyIncome = parseFloat(prompt("Enter your monthly take-home income for DTI calculation:", "5000")) || 5000;
+            const dtiRatio = ((totalMinPayments / monthlyIncome) * 100).toFixed(2);
+            document.getElementById("dtiRatio").textContent = dtiRatio;
+            
+            // Update progress bar (example - would need actual goals)
+            const progressPercent = Math.min(100, (totalDebt / 10000) * 100); // Example based on $10k debt
+            document.getElementById("debtProgress").style.width = progressPercent + "%";
+            document.getElementById("debtProgress").textContent = progressPercent.toFixed(0) + "%";
+            
+            // Show debt type breakdown
+            let debtTypeCards = '';
+            const types = {
+                anchor: { name: "Anchor Debt", count: 0, total: 0, badge: "badge-anchor" },
+                freedom: { name: "Freedom Debt", count: 0, total: 0, badge: "badge-freedom" },
+                toxic: { name: "Toxic Debt", count: 0, total: 0, badge: "badge-toxic" },
+                emotional: { name: "Emotional Debt", count: 0, total: 0, badge: "badge-emotional" }
+            };
+            
+            debts.forEach(debt => {
+                types[debt.type].count++;
+                types[debt.type].total += debt.balance;
+            });
+            
+            for (const type in types) {
+                if (types[type].count > 0) {
+                    debtTypeCards += `
+                        <div class="debt-card">
+                            <h4><span class="badge ${types[type].badge}">${types[type].name}</span> ${types[type].count} debts</h4>
+                            <p>Total Balance: $${types[type].total.toFixed(2)}</p>
+                            <p>Average Balance: $${(types[type].total / types[type].count).toFixed(2)}</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            document.getElementById("debtTypeCards").innerHTML = debtTypeCards;
+            document.getElementById("debtAnalysis").style.display = "block";
+        }
+        
+        // Hybrid Sequence Calculator
+        function loadDebtsForSequence() {
+            let debtListHTML = '';
+            
+            if (debts.length === 0) {
+                debtListHTML = '<p>No debts added yet. Please add your debts in the Debt Inventory tab first.</p>';
+            } else {
+                debtListHTML = '<table><tr><th>Debt</th><th>Type</th><th>Balance</th><th>Rate</th><th>Min Payment</th></tr>';
+                
+                debts.forEach(debt => {
+                    let typeBadge = '';
+                    switch(debt.type) {
+                        case 'anchor': typeBadge = '<span class="badge badge-anchor">Anchor</span>'; break;
+                        case 'freedom': typeBadge = '<span class="badge badge-freedom">Freedom</span>'; break;
+                        case 'toxic': typeBadge = '<span class="badge badge-toxic">Toxic</span>'; break;
+                        case 'emotional': typeBadge = '<span class="badge badge-emotional">Emotional</span>'; break;
+                    }
+                    
+                    debtListHTML += `
+                        <tr>
+                            <td>${debt.name}</td>
+                            <td>${typeBadge}</td>
+                            <td>$${debt.balance.toFixed(2)}</td>
+                            <td>${debt.interestRate}%</td>
+                            <td>$${debt.minPayment.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+                
+                debtListHTML += '</table>';
+            }
+            
+            document.getElementById("debtListForSequence").innerHTML = debtListHTML;
+        }
+        
+        function calculateSequence() {
+            if (debts.length === 0) {
+                alert("Please add your debts in the Debt Inventory tab first");
+                return;
+            }
+            
+            const extraPayment = parseFloat(document.getElementById("extraPayment").value) || 0;
+            
+            // Hybrid algorithm: balances interest rates, balances, and emotional factors
+            const scoredDebts = debts.map(debt => {
+                // Base score on interest rate (financial impact)
+                let score = debt.interestRate * 0.4;
+                
+                // Adjust for balance size (psychological momentum)
+                const balanceFactor = Math.min(1, debt.balance / 5000); // Normalize for balances up to $5k
+                score += balanceFactor * 30;
+                
+                // Adjust for emotional weight
+                score += debt.emotionalWeight * 2;
+                
+                // Special boosts for certain types
+                if (debt.type === 'freedom') score += 15; // Freedom debts get boost for quick wins
+                if (debt.type === 'toxic') score += 10; // Toxic debts get boost for financial health
+                
+                return {
+                    ...debt,
+                    score: score
+                };
+            });
+            
+            // Sort by calculated score (highest first)
+            scoredDebts.sort((a, b) => b.score - a.score);
+            
+            // Display the sequence
+            let sequenceHTML = '<ol>';
+            let payoffTimelineHTML = '<table><tr><th>Debt</th><th>Months to Payoff</th><th>Interest Saved</th></tr>';
+            
+            scoredDebts.forEach((debt, index) => {
+                // Simple payoff calculation (would be more complex in real implementation)
+                const monthlyPayment = debt.minPayment + (index === 0 ? extraPayment : 0);
+                const months = Math.ceil(debt.balance / monthlyPayment);
+                const interestSaved = (debt.balance * debt.interestRate / 100 * months / 12).toFixed(2);
+                
+                let typeBadge = '';
+                switch(debt.type) {
+                    case 'anchor': typeBadge = '<span class="badge badge-anchor">Anchor</span>'; break;
+                    case 'freedom': typeBadge = '<span class="badge badge-freedom">Freedom</span>'; break;
+                    case 'toxic': typeBadge = '<span class="badge badge-toxic">Toxic</span>'; break;
+                    case 'emotional': typeBadge = '<span class="badge badge-emotional">Emotional</span>'; break;
+                }
+                
+                sequenceHTML += `
+                    <li>
+                        <strong>${debt.name}</strong> ${typeBadge}
+                        <br>Balance: $${debt.balance.toFixed(2)} | Rate: ${debt.interestRate}%
+                        <br>Emotional Weight: ${debt.emotionalWeight}/10
+                    </li>
+                `;
+                
+                payoffTimelineHTML += `
+                    <tr>
+                        <td>${debt.name}</td>
+                        <td>~${months} months</td>
+                        <td>$${interestSaved}</td>
+                    </tr>
+                `;
+            });
+            
+            sequenceHTML += '</ol>';
+            payoffTimelineHTML += '</table>';
+            
+            document.getElementById("payoffSequence").innerHTML = sequenceHTML;
+            document.getElementById("payoffTimeline").innerHTML = payoffTimelineHTML;
+            
+            // Implementation steps
+            const steps = [
+                "Set up automatic minimum payments for all debts",
+                "Configure additional payment of $" + extraPayment.toFixed(2) + " to first target debt",
+                "When first debt is paid, roll its minimum payment + $" + extraPayment.toFixed(2) + " to next debt",
+                "Implement one acceleration strategy from the Acceleration Guide",
+                "Set up monthly progress reviews"
+            ];
+            
+            let stepsHTML = '';
+            steps.forEach((step, i) => {
+                stepsHTML += `<li>${step}</li>`;
+            });
+            
+            document.getElementById("implementationSteps").innerHTML = stepsHTML;
+            document.getElementById("sequenceResult").style.display = "block";
+        }
+        
+        // Accordion functionality for Acceleration Guide
+        const acc = document.getElementsByClassName("accordion");
+        for (let i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active-accordion");
+                const panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
+        }
+        
+        // Initialize with sample data for demo
+        window.onload = function() {
+            // Add sample debt if none exists
+            if (debts.length === 0) {
+                debts = [
+                    {
+                        name: "Chase Credit Card",
+                        type: "toxic",
+                        balance: 4275,
+                        interestRate: 24.99,
+                        minPayment: 128,
+                        emotionalWeight: 7
+                    },
+                    {
+                        name: "Medical Bill",
+                        type: "freedom",
+                        balance: 842,
+                        interestRate: 0,
+                        minPayment: 50,
+                        emotionalWeight: 9
+                    },
+                    {
+                        name: "Student Loan",
+                        type: "anchor",
+                        balance: 18736,
+                        interestRate: 5.25,
+                        minPayment: 215,
+                        emotionalWeight: 4
+                    }
+                ];
+            }
+        };
+    </script>
+</body>
+</html>
