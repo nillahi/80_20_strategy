@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>80/20 Money System - Chapter 4 Tools</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .tool-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #3498db;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 16px;
+            transition: 0.3s;
+            color: #333;
+        }
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        .tab button.active {
+            background-color: #3498db;
+            color: white;
+        }
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            background-color: white;
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .tool-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>80/20 Money System - Chapter 4 Tools</h1>
+    
+    <div class="tab">
+        <button class="tablinks active" onclick="openTool(event, 'calculator')">Anti-Budget Calculator</button>
+        <button class="tablinks" onclick="openTool(event, 'inventory')">Expense Inventory</button>
+        <button class="tablinks" onclick="openTool(event, 'automation')">Automation Guide</button>
+    </div>
+
+    <!-- Anti-Budget Calculator Tool -->
+    <div id="calculator" class="tabcontent" style="display: block;">
+        <div class="tool-container">
+            <h3>Anti-Budget Formula Calculator</h3>
+            <p>Calculate your personalized savings rate, fixed expenses, and guilt-free spending amount.</p>
+            
+            <div class="section">
+                <label for="income">Monthly Take-Home Income:</label>
+                <input type="number" id="income" placeholder="Enter your monthly income">
+                
+                <label for="phase">Financial Phase:</label>
+                <select id="phase">
+                    <option value="12.5">Financial Stability (10-15%)</option>
+                    <option value="25" selected>Debt Elimination (20-30%)</option>
+                    <option value="40">Wealth Building (30-50%)</option>
+                    <option value="50">FI Sprint (50%+)</option>
+                </select>
+                
+                <label for="savingsRate">Your Selected Savings Rate (%):</label>
+                <input type="number" id="savingsRate" placeholder="Enter your savings rate" value="25">
+                
+                <label for="fixedExpenses">Total Fixed Monthly Expenses:</label>
+                <input type="number" id="fixedExpenses" placeholder="Enter your fixed expenses">
+                
+                <button onclick="calculateAntiBudget()">Calculate</button>
+                
+                <div id="result" class="result" style="display: none;">
+                    <h4>Your Anti-Budget Numbers:</h4>
+                    <p>Automated Savings: $<span id="savingsAmount"></span>/month (<span id="savingsPercent"></span>%)</p>
+                    <p>Fixed Expenses: $<span id="fixedAmount"></span>/month</p>
+                    <p>Guilt-Free Spending: $<span id="guiltFree"></span>/month</p>
+                    
+                    <h4>Savings Rate Impact:</h4>
+                    <table>
+                        <tr>
+                            <th>Savings Rate</th>
+                            <th>Savings Amount</th>
+                            <th>Guilt-Free Spending</th>
+                        </tr>
+                        <tr>
+                            <td>20%</td>
+                            <td>$<span id="savings20"></span></td>
+                            <td>$<span id="spending20"></span></td>
+                        </tr>
+                        <tr>
+                            <td>30%</td>
+                            <td>$<span id="savings30"></span></td>
+                            <td>$<span id="spending30"></span></td>
+                        </tr>
+                        <tr>
+                            <td>40%</td>
+                            <td>$<span id="savings40"></span></td>
+                            <td>$<span id="spending40"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Expense Inventory Tool -->
+    <div id="inventory" class="tabcontent">
+        <div class="tool-container">
+            <h3>Fixed Expense Inventory</h3>
+            <p>Catalog all recurring expenses and identify automation opportunities.</p>
+            
+            <div class="section">
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th>Expense Name</th>
+                            <th>Category</th>
+                            <th>Amount ($)</th>
+                            <th>Frequency</th>
+                            <th>Automated?</th>
+                            <th>Optimization Potential (1-5)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" placeholder="e.g., Rent"></td>
+                            <td>
+                                <select>
+                                    <option>Housing</option>
+                                    <option>Transportation</option>
+                                    <option>Utilities</option>
+                                    <option>Insurance</option>
+                                    <option>Subscriptions</option>
+                                    <option>Health</option>
+                                    <option>Other</option>
+                                </select>
+                            </td>
+                            <td><input type="number" placeholder="0.00"></td>
+                            <td>
+                                <select>
+                                    <option>Monthly</option>
+                                    <option>Weekly</option>
+                                    <option>Bi-Weekly</option>
+                                    <option>Quarterly</option>
+                                    <option>Annual</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                    <option>Partial</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select>
+                                    <option>1 (Low)</option>
+                                    <option>2</option>
+                                    <option selected>3</option>
+                                    <option>4</option>
+                                    <option>5 (High)</option>
+                                </select>
+                            </td>
+                            <td><button onclick="addExpenseRow(this)">Add</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button onclick="calculateExpenses()">Calculate Totals</button>
+                
+                <div id="expenseSummary" class="result" style="display: none;">
+                    <h4>Expense Summary</h4>
+                    <p>Total Fixed Expenses: $<span id="totalExpenses"></span></p>
+                    <p>Percentage of Income: <span id="expensePercent"></span>%</p>
+                    <p>Automation Coverage: <span id="automationPercent"></span>% of expenses</p>
+                    <p>Top Optimization Opportunity: <span id="topOptimization"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Automation Guide Tool -->
+    <div id="automation" class="tabcontent">
+        <div class="tool-container">
+            <h3>Anti-Budget Automation Guide</h3>
+            <p>Step-by-step instructions to set up the critical automations that power your Anti-Budget system.</p>
+            
+            <div class="section">
+                <h4>Core Automations</h4>
+                <div class="automation-step">
+                    <h5>1. Paycheck Allocation</h5>
+                    <p>Contact HR to split direct deposit:</p>
+                    <ul>
+                        <li><span class="highlight">70% to Checking</span> (for bills)</li>
+                        <li><span class="highlight">30% to Savings</span> (or your calculated % from the Anti-Budget Calculator)</li>
+                    </ul>
+                    <p><strong>OR</strong> set up auto-transfer from your bank for payday +1 day</p>
+                </div>
+                
+                <div class="automation-step">
+                    <h5>2. Bill Automation</h5>
+                    <p>For each fixed expense (from your Inventory):</p>
+                    <ol type="a">
+                        <li>Log in to biller website</li>
+                        <li>Set up auto-pay for due date -2 days</li>
+                        <li>Choose "Full Balance" for credit cards</li>
+                        <li>Set payment notifications</li>
+                    </ol>
+                </div>
+                
+                <div class="automation-step">
+                    <h5>3. Savings Automation</h5>
+                    <ol>
+                        <li>Create recurring transfer:
+                            <ul>
+                                <li><strong>From:</strong> Checking</li>
+                                <li><strong>To:</strong> Savings/Debt Payment</li>
+                                <li><strong>Amount:</strong> [From Calculator]</li>
+                                <li><strong>Date:</strong> Payday +1 business day</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="automation-step">
+                    <h5>4. Verification System</h5>
+                    <ul>
+                        <li>Set up text alerts for all transactions</li>
+                        <li>Create calendar reminders for:
+                            <ul>
+                                <li>Weekly balance check (5 min)</li>
+                                <li>Monthly optimization review (15 min)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h4>Troubleshooting</h4>
+                <table>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Overdrafts occur</td>
+                        <td>Implement $500 buffer balance in checking</td>
+                    </tr>
+                    <tr>
+                        <td>Variable income</td>
+                        <td>Use base amount + % of excess for transfers</td>
+                    </tr>
+                    <tr>
+                        <td>Automation fails</td>
+                        <td>Set up backup payment alerts 3 days before due date</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h4>Bank-Specific Instructions</h4>
+                <select id="bankSelect" onchange="showBankInstructions()">
+                    <option value="">Select your bank...</option>
+                    <option value="chase">Chase</option>
+                    <option value="bofa">Bank of America</option>
+                    <option value="wells">Wells Fargo</option>
+                    <option value="capitalone">Capital One</option>
+                    <option value="ally">Ally Bank</option>
+                    <option value="creditunion">Credit Union</option>
+                </select>
+                
+                <div id="bankInstructions" style="display: none; margin-top: 15px; padding: 15px; background-color: #f0f8ff; border-radius: 5px;">
+                    <h5 id="bankName"></h5>
+                    <ol id="bankSteps"></ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTool(evt, toolName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(toolName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Anti-Budget Calculator
+        function calculateAntiBudget() {
+            const income = parseFloat(document.getElementById("income").value);
+            const savingsRate = parseFloat(document.getElementById("savingsRate").value);
+            const fixedExpenses = parseFloat(document.getElementById("fixedExpenses").value);
+            
+            if (isNaN(income) || isNaN(savingsRate) || isNaN(fixedExpenses)) {
+                alert("Please fill in all fields with valid numbers");
+                return;
+            }
+            
+            const savingsAmount = income * (savingsRate / 100);
+            const guiltFree = income - savingsAmount - fixedExpenses;
+            
+            document.getElementById("savingsAmount").textContent = savingsAmount.toFixed(2);
+            document.getElementById("savingsPercent").textContent = savingsRate.toFixed(1);
+            document.getElementById("fixedAmount").textContent = fixedExpenses.toFixed(2);
+            document.getElementById("guiltFree").textContent = guiltFree.toFixed(2);
+            
+            // Calculate comparison rates
+            document.getElementById("savings20").textContent = (income * 0.20).toFixed(2);
+            document.getElementById("spending20").textContent = (income * 0.80 - fixedExpenses).toFixed(2);
+            
+            document.getElementById("savings30").textContent = (income * 0.30).toFixed(2);
+            document.getElementById("spending30").textContent = (income * 0.70 - fixedExpenses).toFixed(2);
+            
+            document.getElementById("savings40").textContent = (income * 0.40).toFixed(2);
+            document.getElementById("spending40").textContent = (income * 0.60 - fixedExpenses).toFixed(2);
+            
+            document.getElementById("result").style.display = "block";
+        }
+
+        // Expense Inventory
+        function addExpenseRow(button) {
+            const row = button.parentNode.parentNode;
+            const newRow = row.cloneNode(true);
+            newRow.querySelector("button").textContent = "Remove";
+            newRow.querySelector("button").onclick = function() { this.parentNode.parentNode.remove(); };
+            row.parentNode.appendChild(newRow);
+        }
+
+        function calculateExpenses() {
+            const table = document.getElementById("expenseTable");
+            const rows = table.getElementsByTagName("tr");
+            let total = 0;
+            let automatedCount = 0;
+            let expenseCount = 0;
+            let topOptimization = {name: "", value: 0};
+            
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                const amount = parseFloat(cells[2].getElementsByTagName("input")[0].value);
+                const automated = cells[4].getElementsByTagName("select")[0].value;
+                const optimization = parseInt(cells[5].getElementsByTagName("select")[0].value.split(" ")[0]);
+                const name = cells[0].getElementsByTagName("input")[0].value;
+                
+                if (!isNaN(amount) && name) {
+                    total += amount;
+                    expenseCount++;
+                    
+                    if (automated === "Yes") {
+                        automatedCount++;
+                    }
+                    
+                    if (optimization > topOptimization.value) {
+                        topOptimization.value = optimization;
+                        topOptimization.name = name;
+                    }
+                }
+            }
+            
+            if (expenseCount > 0) {
+                const income = parseFloat(document.getElementById("income").value) || 1;
+                document.getElementById("totalExpenses").textContent = total.toFixed(2);
+                document.getElementById("expensePercent").textContent = ((total / income) * 100).toFixed(1);
+                document.getElementById("automationPercent").textContent = ((automatedCount / expenseCount) * 100).toFixed(0);
+                document.getElementById("topOptimization").textContent = topOptimization.name + " (Priority: " + topOptimization.value + ")";
+                document.getElementById("expenseSummary").style.display = "block";
+            } else {
+                alert("Please add at least one valid expense");
+            }
+        }
+
+        // Bank Instructions
+        function showBankInstructions() {
+            const bank = document.getElementById("bankSelect").value;
+            const instructions = document.getElementById("bankInstructions");
+            const bankName = document.getElementById("bankName");
+            const bankSteps = document.getElementById("bankSteps");
+            
+            if (!bank) {
+                instructions.style.display = "none";
+                return;
+            }
+            
+            instructions.style.display = "block";
+            bankSteps.innerHTML = "";
+            
+            switch(bank) {
+                case "chase":
+                    bankName.textContent = "Chase Bank Automation Setup";
+                    addStep(bankSteps, "Log in to your Chase account online");
+                    addStep(bankSteps, "Click 'Pay & Transfer' then 'Schedule transfers'");
+                    addStep(bankSteps, "Select 'Recurring transfer' and set frequency to match your pay schedule");
+                    addStep(bankSteps, "Enter the amount from your Anti-Budget Calculator");
+                    addStep(bankSteps, "Set transfer date for 1 day after payday");
+                    addStep(bankSteps, "Review and confirm the transfer");
+                    break;
+                    
+                case "bofa":
+                    bankName.textContent = "Bank of America Automation Setup";
+                    addStep(bankSteps, "Log in to your Bank of America account");
+                    addStep(bankSteps, "Navigate to 'Transfers' tab");
+                    addStep(bankSteps, "Click 'Schedule Recurring Transfer'");
+                    addStep(bankSteps, "Set up transfer according to your Anti-Budget amounts");
+                    addStep(bankSteps, "Choose 'After deposit' option if available");
+                    addStep(bankSteps, "Confirm and activate the transfer");
+                    break;
+                    
+                // Add other banks similarly...
+                
+                default:
+                    bankName.textContent = "General Bank Instructions";
+                    addStep(bankSteps, "Log in to your online banking");
+                    addStep(bankSteps, "Find the 'Transfers' or 'Bill Pay' section");
+                    addStep(bankSteps, "Set up recurring transfer for your savings amount");
+                    addStep(bankSteps, "Schedule for 1 day after your paycheck deposits");
+                    addStep(bankSteps, "Set up separate automations for each fixed expense");
+                    addStep(bankSteps, "Enable notifications for all transactions");
+            }
+        }
+
+        function addStep(list, text) {
+            const li = document.createElement("li");
+            li.textContent = text;
+            list.appendChild(li);
+        }
+
+        // Initialize with sample data for demo
+        window.onload = function() {
+            document.getElementById("income").value = "5000";
+            document.getElementById("fixedExpenses").value = "2500";
+        };
+    </script>
+</body>
+</html>
