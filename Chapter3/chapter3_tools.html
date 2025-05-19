@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>80/20 Money System - Automation Infrastructure Tools</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --tertiary-color: #27ae60;
+            --warning-color: #e74c3c;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #95a5a6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: var(--tertiary-color);
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: var(--light-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        input[type="number"], 
+        select, 
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .save-btn {
+            background-color: var(--tertiary-color);
+        }
+        
+        .save-btn:hover {
+            background-color: #219653;
+        }
+        
+        .tab-container {
+            margin-top: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+        }
+        
+        .tab.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        thead {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+            cursor: help;
+            position: relative;
+        }
+        
+        .info-icon .tooltip {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--dark-gray);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            font-size: 14px;
+        }
+        
+        .info-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .progress-container {
+            height: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: var(--tertiary-color);
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .hub-spoke-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .spoke {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: var(--tertiary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .spoke:nth-child(2) {
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .spoke:nth-child(3) {
+            top: 50%;
+            left: calc(50% + 150px);
+            transform: translateY(-50%);
+        }
+        
+        .spoke:nth-child(4) {
+            top: calc(50% + 150px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .spoke:nth-child(5) {
+            top: 50%;
+            left: calc(50% - 150px);
+            transform: translateY(-50%);
+        }
+        
+        .connector {
+            position: absolute;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .connector-v {
+            width: 4px;
+            height: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connector-h {
+            height: 4px;
+            width: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .connector-v:nth-of-type(1) {
+            top: 110px;
+        }
+        
+        .connector-h:nth-of-type(2) {
+            left: calc(50% + 60px);
+        }
+        
+        .connector-v:nth-of-type(3) {
+            bottom: 110px;
+        }
+        
+        .connector-h:nth-of-type(4) {
+            right: calc(50% + 60px);
+        }
+        
+        .result-container {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .score-label {
+            font-size: 18px;
+            color: var(--dark-gray);
+        }
+        
+        .score-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--tertiary-color);
+        }
+        
+        .next-steps {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .next-steps h3 {
+            margin-top: 0;
+        }
+        
+        .next-steps ol {
+            padding-left: 20px;
+        }
+        
+        .next-steps li {
+            margin-bottom: 10px;
+        }
+        
+        @media print {
+            button {
+                display: none;
+            }
+            
+            .tab-container, .tabs {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block;
+                border: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hub-spoke-container {
+                height: 350px;
+            }
+            
+            .spoke, .hub {
+                width: 80px;
+                height: 80px;
+                font-size: 12px;
+            }
+            
+            .spoke:nth-child(3) {
+                left: calc(50% + 120px);
+            }
+            
+            .spoke:nth-child(5) {
+                left: calc(50% - 120px);
+            }
+            
+            .spoke:nth-child(2) {
+                top: 70px;
+            }
+            
+            .spoke:nth-child(4) {
+                top: calc(50% + 120px);
+            }
+            
+            .connector-v {
+                height: 50px;
+            }
+            
+            .connector-h {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>80/20 Money System - Automation Infrastructure Tools</h1>
+            <p>Chapter 3: The Automation Infrastructure - Building systems that ensure consistent execution without willpower</p>
+        </header>
+        
+        <div class="intro">
+            <h2>Welcome to Your Financial Automation Journey</h2>
+            <p><em>"Automation is the key to financial progress without willpower."</em> - The 80/20 Money System</p>
+            <p>These tools will help you implement the Automation Infrastructure from Chapter 3 of the 80/20 Money System. You'll assess your automation readiness, map your accounts to the optimal structure, and build your implementation plan.</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <div class="tab active" onclick="openTab(event, 'assessment')">1. Automation Readiness Assessment</div>
+                <div class="tab" onclick="openTab(event, 'hub-spoke')">2. Hub-and-Spoke Account Map</div>
+                <div class="tab" onclick="openTab(event, 'implementation')">3. Automation Implementation Guide</div>
+            </div>
+            
+            <!-- Tab 1: Automation Readiness Assessment -->
+            <div id="assessment" class="tab-content active">
+                <h2>Automation Readiness Assessment</h2>
+                <p>Let's assess which aspects of your financial life are ready for automation. This will help you identify your highest-impact opportunities.</p>
+                
+                <div class="section">
+                    <h3>Income Assessment</h3>
+                    <div class="form-group">
+                        <label>What is your income type?</label>
+                        <select id="income-type">
+                            <option value="steady">Steady (same amount on a regular schedule)</option>
+                            <option value="variable">Variable (different amounts on a regular schedule)</option>
+                            <option value="irregular">Irregular (unpredictable amount and/or timing)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>How frequently do you receive income?</label>
+                        <select id="income-frequency">
+                            <option value="weekly">Weekly</option>
+                            <option value="biweekly" selected>Bi-weekly</option>
+                            <option value="semi-monthly">Twice a month (e.g., 1st and 15th)</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="irregular">Irregular</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Do you currently use direct deposit?</label>
+                        <select id="direct-deposit">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Current Financial Structure</h3>
+                    <div class="form-group">
+                        <label>How many financial accounts do you currently have?</label>
+                        <input type="number" id="account-count" min="1" value="3">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Which financial accounts do you currently have? (Check all that apply)</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="checking" checked>
+                            <label for="checking">Checking Account</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="savings" checked>
+                            <label for="savings">Savings Account</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="credit-card" checked>
+                            <label for="credit-card">Credit Cards</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="retirement">
+                            <label for="retirement">Retirement Accounts (401k, IRA)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="investment">
+                            <label for="investment">Investment Accounts</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Does your bank offer automatic transfers between accounts?</label>
+                        <select id="auto-transfers">
+                            <option value="yes">Yes</option>
+                            <option value="limited">Yes, but with limitations</option>
+                            <option value="no">No</option>
+                            <option value="unknown">I don't know</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Current Automation Status</h3>
+                    <div class="form-group">
+                        <label>Which financial tasks do you currently handle manually? (Check all that apply)</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="manual-bills" checked>
+                            <label for="manual-bills">Paying bills</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="manual-savings" checked>
+                            <label for="manual-savings">Transferring money to savings</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="manual-investments" checked>
+                            <label for="manual-investments">Making investment contributions</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="manual-debt" checked>
+                            <label for="manual-debt">Making additional debt payments</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>How do you currently pay most of your bills?</label>
+                        <select id="bill-payment">
+                            <option value="paper">Paper checks or money orders</option>
+                            <option value="manual-online">Manual online payments</option>
+                            <option value="auto-bank">Bank's bill pay service</option>
+                            <option value="auto-merchant">Automatic payments through merchants</option>
+                            <option value="mixed" selected>A mix of methods</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Do you have a system for capturing irregular income? (tax refunds, bonuses, etc.)</label>
+                        <select id="irregular-capture">
+                            <option value="yes">Yes, automated</option>
+                            <option value="manual">Yes, but manual</option>
+                            <option value="no" selected>No system in place</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="save-btn" onclick="calculateReadiness()">Calculate My Automation Readiness</button>
+                
+                <div id="readiness-results" class="result-container">
+                    <h3>Your Automation Readiness Results</h3>
+                    
+                    <div class="score-box">
+                        <div class="score-label">Overall Automation Readiness</div>
+                        <div class="score-value" id="readiness-score">72%</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="readiness-bar" style="width: 72%;">72%</div>
+                        </div>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Income Stability</td>
+                                <td id="income-status">Ready for Automation</td>
+                                <td id="income-recommendation">Your steady, predictable income is ideal for automation.</td>
+                            </tr>
+                            <tr>
+                                <td>Account Structure</td>
+                                <td id="account-status">Needs Optimization</td>
+                                <td id="account-recommendation">Implement the Hub-and-Spoke structure to optimize your accounts.</td>
+                            </tr>
+                            <tr>
+                                <td>Bill Payments</td>
+                                <td id="bills-status">Partially Ready</td>
+                                <td id="bills-recommendation">Convert manual payments to automated systems.</td>
+                            </tr>
+                            <tr>
+                                <td>Savings & Investments</td>
+                                <td id="savings-status">Ready for Automation</td>
+                                <td id="savings-recommendation">Set up automatic transfers to savings and investment accounts.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="next-steps">
+                        <h3>Your Next Steps:</h3>
+                        <ol id="readiness-next-steps">
+                            <li>Complete the Hub-and-Spoke Account Map to organize your financial structure</li>
+                            <li>Set up automatic transfers for savings based on your Anti-Budget formula</li>
+                            <li>Convert manual bill payments to automatic systems</li>
+                            <li>Implement your Windfall Capture Protocol for irregular income</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 2: Hub-and-Spoke Account Map -->
+            <div id="hub-spoke" class="tab-content">
+                <h2>Hub-and-Spoke Account Map</h2>
+                <p>The Hub-and-Spoke account structure creates a central "hub" account that automatically distributes money to purpose-specific "spoke" accounts. This structure is the foundation of your automation infrastructure.</p>
+                
+                <div class="section">
+                    <h3>The Hub-and-Spoke Model</h3>
+                    
+                    <div class="hub-spoke-container">
+                        <div class="hub">Central Hub<br>Account</div>
+                        <div class="spoke">Bills<br>Account</div>
+                        <div class="spoke">Savings<br>Account</div>
+                        <div class="spoke">Spending<br>Account</div>
+                        <div class="spoke">Investment<br>Account</div>
+                        
+                        <div class="connector connector-v"></div>
+                        <div class="connector connector-h"></div>
+                        <div class="connector connector-v"></div>
+                        <div class="connector connector-h"></div>
+                    </div>
+                    
+                    <p>The Hub-and-Spoke structure creates automatic money flows that ensure your financial priorities are handled without ongoing effort or willpower.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Map Your Existing Accounts</h3>
+                    <p>Let's map your existing accounts to the Hub-and-Spoke structure and identify any new accounts you need to create.</p>
+                    
+                    <div class="form-group">
+                        <label>What will serve as your Hub Account? <span class="info-icon">i<span class="tooltip">This is your main account where income arrives and is then distributed. Typically a checking account.</span></span></label>
+                        <input type="text" id="hub-account" placeholder="e.g., Chase Checking">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Bills Account <span class="info-icon">i<span class="tooltip">This account is dedicated to paying fixed expenses like rent/mortgage, utilities, subscriptions, etc.</span></span></label>
+                        <select id="bills-account-type">
+                            <option value="same-as-hub">Same as Hub Account</option>
+                            <option value="existing">Use Existing Account</option>
+                            <option value="new">Need to Create New Account</option>
+                        </select>
+                        <div id="bills-account-name" style="display: none; margin-top: 10px;">
+                            <input type="text" placeholder="Account name/description">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Savings Account <span class="info-icon">i<span class="tooltip">This account holds your emergency fund and short-term savings goals.</span></span></label>
+                        <select id="savings-account-type">
+                            <option value="existing">Use Existing Account</option>
+                            <option value="new">Need to Create New Account</option>
+                        </select>
+                        <div id="savings-account-name" style="margin-top: 10px;">
+                            <input type="text" placeholder="Account name/description">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Spending Account <span class="info-icon">i<span class="tooltip">This account is for your Guilt-Free Spending amount from the Anti-Budget system.</span></span></label>
+                        <select id="spending-account-type">
+                            <option value="same-as-hub">Same as Hub Account</option>
+                            <option value="existing">Use Existing Account</option>
+                            <option value="new">Need to Create New Account</option>
+                        </select>
+                        <div id="spending-account-name" style="display: none; margin-top: 10px;">
+                            <input type="text" placeholder="Account name/description">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Investment Account <span class="info-icon">i<span class="tooltip">This account is for your long-term investments and retirement savings.</span></span></label>
+                        <select id="investment-account-type">
+                            <option value="existing">Use Existing Account</option>
+                            <option value="new">Need to Create New Account</option>
+                            <option value="multiple">Multiple Accounts</option>
+                        </select>
+                        <div id="investment-account-name" style="margin-top: 10px;">
+                            <input type="text" placeholder="Account name/description">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Accounts (Optional) <span class="info-icon">i<span class="tooltip">You may want additional purpose-specific accounts for goals like vacation, home down payment, etc.</span></span></label>
+                        <textarea id="additional-accounts" rows="3" placeholder="e.g., Vacation Fund at Ally Bank, Home Down Payment at Capital One"></textarea>
+                    </div>
+                </div>
+                
+                <button class="save-btn" onclick="generateAccountMap()">Generate My Account Map</button>
+                
+                <div id="account-map-results" class="result-container">
+                    <h3>Your Personalized Hub-and-Spoke Account Map</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Account</th>
+                                <th>Status</th>
+                                <th>Action Required</th>
+                            </tr>
+                        </thead>
+                        <tbody id="account-map-table">
+                            <!-- Will be filled dynamically with JS -->
+                            <tr>
+                                <td>Hub Account</td>
+                                <td>Chase Checking</td>
+                                <td>Existing</td>
+                                <td>Set up direct deposit</td>
+                            </tr>
+                            <tr>
+                                <td>Bills Account</td>
+                                <td>Same as Hub</td>
+                                <td>Existing</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>Savings Account</td>
+                                <td>Ally Savings</td>
+                                <td>Existing</td>
+                                <td>Set up automatic transfers</td>
+                            </tr>
+                            <tr>
+                                <td>Spending Account</td>
+                                <td>Capital One 360</td>
+                                <td>Needs Creation</td>
+                                <td>Open account</td>
+                            </tr>
+                            <tr>
+                                <td>Investment Account</td>
+                                <td>Vanguard IRA</td>
+                                <td>Existing</td>
+                                <td>Set up automatic contributions</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="next-steps">
+                        <h3>Implementation Steps:</h3>
+                        <ol id="account-map-steps">
+                            <li>Open your Capital One 360 Spending Account</li>
+                            <li>Configure direct deposit to your Hub Account</li>
+                            <li>Set up automatic transfers from Hub to all Spoke accounts</li>
+                            <li>Update bill payment methods to come from Bills Account</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Automation Implementation Guide -->
+            <div id="implementation" class="tab-content">
+                <h2>Automation Implementation Guide</h2>
+                <p>Now that you've assessed your automation readiness and created your account map, let's build your complete financial automation infrastructure.</p>
+                
+                <div class="section">
+                    <h3>Step 1: Income Automation</h3>
+                    <p>The foundation of your automation infrastructure is ensuring your income is automatically deposited and distributed.</p>
+                    
+                    <div class="form-group">
+                        <label>What is your monthly take-home income?</label>
+                        <input type="number" id="monthly-income" placeholder="e.g., 4000" min="0">
+                    </div>
+                    
+                    <h4>Income Distribution Plan (based on your Anti-Budget formula)</h4>
+                    <div class="form-group">
+                        <label>Bills Percentage: <span id="bills-percentage-value">50</span>%</label>
+                        <input type="range" id="bills-percentage" min="0" max="80" value="50" oninput="updatePercentages('bills')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Savings Percentage: <span id="savings-percentage-value">20</span>%</label>
+                        <input type="range" id="savings-percentage" min="0" max="50" value="20" oninput="updatePercentages('savings')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Spending Percentage: <span id="spending-percentage-value">20</span>%</label>
+                        <input type="range" id="spending-percentage" min="0" max="50" value="20" oninput="updatePercentages('spending')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Investment Percentage: <span id="investment-percentage-value">10</span>%</label>
+                        <input type="range" id="investment-percentage" min="0" max="50" value="10" oninput="updatePercentages('investment')">
+                    </div>
+                    
+                    <div id="allocation-summary" style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px; display: none;">
+                        <h4>Monthly Allocation Summary</h4>
+                        <table id="allocation-table">
+                            <tr>
+                                <td>Bills Account:</td>
+                                <td id="bills-amount">$2,000</td>
+                            </tr>
+                            <tr>
+                                <td>Savings Account:</td>
+                                <td id="savings-amount">$800</td>
+                            </tr>
+                            <tr>
+                                <td>Spending Account:</td>
+                                <td id="spending-amount">$800</td>
+                            </tr>
+                            <tr>
+                                <td>Investment Account:</td>
+                                <td id="investment-amount">$400</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Step 2: Savings Automation</h3>
+                    <p>The most important automation is your savings system, which ensures financial progress happens automatically.</p>
+                    
+                    <div class="form-group">
+                        <label>Savings Transfer Timing <span class="info-icon">i<span class="tooltip">Research shows that scheduling transfers 24-48 hours after payday is optimal. This creates enough distance to feel separate but not enough time to spend it.</span></span></label>
+                        <select id="savings-timing">
+                            <option value="same-day">Same day as income arrives</option>
+                            <option value="next-day" selected>One day after income arrives</option>
+                            <option value="two-days">Two days after income arrives</option>
+                            <option value="week-after">One week after income arrives</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Emergency Fund Target <span class="info-icon">i<span class="tooltip">Your emergency fund should be fully funded before accelerating other financial goals.</span></span></label>
+                        <select id="emergency-fund-size">
+                            <option value="1000">$1,000 Starter Emergency Fund</option>
+                            <option value="3-months">3 Months of Expenses</option>
+                            <option value="6-months" selected>6 Months of Expenses</option>
+                            <option value="12-months">12 Months of Expenses</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Savings Goals (Optional)</label>
+                        <textarea id="savings-goals" rows="3" placeholder="e.g., Vacation: $2,000 by June, Home Down Payment: $20,000 by 2027"></textarea>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Step 3: Bill Payment Automation</h3>
+                    <p>Automating your bill payments eliminates late fees and reduces financial stress.</p>
+                    
+                    <table id="bill-table">
+                        <thead>
+                            <tr>
+                                <th>Bill Name</th>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th>Current Method</th>
+                                <th>Automation Method</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" placeholder="e.g., Rent"></td>
+                                <td><input type="number" placeholder="Amount" min="0"></td>
+                                <td><input type="text" placeholder="e.g., 1st"></td>
+                                <td>
+                                    <select>
+                                        <option value="manual">Manual</option>
+                                        <option value="auto">Automated</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="bank-billpay">Bank Bill Pay</option>
+                                        <option value="merchant-auto">Merchant Auto-Pay</option>
+                                        <option value="credit-card">Credit Card</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" placeholder="e.g., Electric"></td>
+                                <td><input type="number" placeholder="Amount" min="0"></td>
+                                <td><input type="text" placeholder="e.g., 15th"></td>
+                                <td>
+                                    <select>
+                                        <option value="manual">Manual</option>
+                                        <option value="auto">Automated</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option value="bank-billpay">Bank Bill Pay</option>
+                                        <option value="merchant-auto">Merchant Auto-Pay</option>
+                                        <option value="credit-card">Credit Card</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <button onclick="addBillRow()" style="margin-top: 10px; background-color: var(--tertiary-color);">+ Add Bill</button>
+                </div>
+                
+                <div class="section">
+                    <h3>Step 4: Windfall Capture Protocol</h3>
+                    <p>The Windfall Capture Protocol automatically allocates irregular income (bonuses, tax refunds, gifts, etc.) according to your financial priorities.</p>
+                    
+                    <h4>Default Windfall Allocation</h4>
+                    <div class="form-group">
+                        <label>Emergency Fund: <span id="windfall-emergency-value">30</span>%</label>
+                        <input type="range" id="windfall-emergency" min="0" max="100" value="30" oninput="updateWindfallPercentages('emergency')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Debt Payoff: <span id="windfall-debt-value">40</span>%</label>
+                        <input type="range" id="windfall-debt" min="0" max="100" value="40" oninput="updateWindfallPercentages('debt')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Long-Term Savings: <span id="windfall-longterm-value">20</span>%</label>
+                        <input type="range" id="windfall-longterm" min="0" max="100" value="20" oninput="updateWindfallPercentages('longterm')">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Enjoyment/Celebration: <span id="windfall-enjoyment-value">10</span>%</label>
+                        <input type="range" id="windfall-enjoyment" min="0" max="100" value="10" oninput="updateWindfallPercentages('enjoyment')">
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3>Step 5: Buffer Balance Implementation</h3>
+                    <p>The Buffer Balance is your protection against automation failures due to timing mismatches or unexpected expenses.</p>
+                    
+                    <div class="form-group">
+                        <label>What is your largest expense day of the month? <span class="info-icon">i<span class="tooltip">This is the day when the most money leaves your account (typically rent/mortgage day).</span></span></label>
+                        <input type="number" id="largest-expense" placeholder="e.g., 1500" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Buffer Balance Calculation</label>
+                        <select id="buffer-multiplier">
+                            <option value="1">1.0× Largest Expense Day (Minimum)</option>
+                            <option value="1.5" selected>1.5× Largest Expense Day (Recommended)</option>
+                            <option value="2">2.0× Largest Expense Day (Conservative)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="buffer-result" style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px; display: none;">
+                        <h4>Your Recommended Buffer Balance</h4>
+                        <p>Keep at least <span id="buffer-amount" style="font-weight: bold; font-size: 18px; color: var(--tertiary-color);">$2,250</span> as your minimum checking account balance.</p>
+                        <p>This amount becomes your new "zero" - when your account approaches this level, treat it as if you're running out of money.</p>
+                    </div>
+                </div>
+                
+                <button class="save-btn" onclick="generateImplementationPlan()">Generate My Implementation Plan</button>
+                
+                <div id="implementation-results" class="result-container">
+                    <h3>Your Personalized Automation Implementation Plan</h3>
+                    
+                    <div class="section">
+                        <h4>Weekly Implementation Schedule</h4>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Week</th>
+                                    <th>Focus Area</th>
+                                    <th>Tasks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="implementation-schedule">
+                                <tr>
+                                    <td>Week 1</td>
+                                    <td>Account Structure</td>
+                                    <td id="week1-tasks">
+                                        <ul>
+                                            <li>Open any missing spoke accounts</li>
+                                            <li>Set up direct deposit to hub account</li>
+                                            <li>Configure online banking access for all accounts</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Week 2</td>
+                                    <td>Savings Automation</td>
+                                    <td id="week2-tasks">
+                                        <ul>
+                                            <li>Set up automatic transfers to savings account</li>
+                                            <li>Configure emergency fund targets</li>
+                                            <li>Implement savings goals with specific targets</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Week 3</td>
+                                    <td>Bill Payment Automation</td>
+                                    <td id="week3-tasks">
+                                        <ul>
+                                            <li>Convert manual bill payments to automatic</li>
+                                            <li>Stagger payment dates to align with income</li>
+                                            <li>Set up payment notifications</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Week 4</td>
+                                    <td>System Protection</td>
+                                    <td id="week4-tasks">
+                                        <ul>
+                                            <li>Build buffer balance</li>
+                                            <li>Implement Windfall Capture Protocol</li>
+                                            <li>Create system verification procedures</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <h4>Your Automation Maintenance System</h4>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Frequency</th>
+                                    <th>Tasks</th>
+                                    <th>Time Required</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Daily</td>
+                                    <td>
+                                        <ul>
+                                            <li>Quick balance check</li>
+                                            <li>Transaction verification</li>
+                                        </ul>
+                                    </td>
+                                    <td>30 seconds</td>
+                                </tr>
+                                <tr>
+                                    <td>Weekly</td>
+                                    <td>
+                                        <ul>
+                                            <li>Review upcoming transactions</li>
+                                            <li>Check for system errors</li>
+                                        </ul>
+                                    </td>
+                                    <td>5 minutes</td>
+                                </tr>
+                                <tr>
+                                    <td>Monthly</td>
+                                    <td>
+                                        <ul>
+                                            <li>Full system verification</li>
+                                            <li>Progress check on financial goals</li>
+                                            <li>One optimization identification</li>
+                                        </ul>
+                                    </td>
+                                    <td>15 minutes</td>
+                                </tr>
+                                <tr>
+                                    <td>Quarterly</td>
+                                    <td>
+                                        <ul>
+                                            <li>Complete system audit</li>
+                                            <li>Strategic adjustment consideration</li>
+                                            <li>Progress celebration</li>
+                                        </ul>
+                                    </td>
+                                    <td>30 minutes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <button onclick="window.print()" style="background-color: var(--primary-color);">Print Implementation Plan</button>
+        </div>
+        
+        <footer>
+            <p>80/20 Money System - Chapter 3: The Automation Infrastructure</p>
+            <p><small>Created as part of your 80/20 Money System implementation journey.</small></p>
+        </footer>
+    </div>
+    
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabContent, tabLinks;
+            
+            // Hide all tab content
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            
+            // Remove "active" class from all tabs
+            tabLinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab and add "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Automation Readiness Calculator
+        function calculateReadiness() {
+            // In a real implementation, this would calculate based on form inputs
+            // For demo purposes, we'll just show the results container
+            document.getElementById('readiness-results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('readiness-results').scrollIntoView({behavior: 'smooth'});
+        }
+        
+        // Account Map Generator
+        function generateAccountMap() {
+            // In a real implementation, this would generate the account map based on inputs
+            // For demo purposes, we'll just show the results container
+            document.getElementById('account-map-results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('account-map-results').scrollIntoView({behavior: 'smooth'});
+        }
+        
+        // Implementation Plan Generator
+        function generateImplementationPlan() {
+            // In a real implementation, this would generate the implementation plan based on inputs
+            // For demo purposes, we'll just show the results container
+            document.getElementById('implementation-results').style.display = 'block';
+            
+            // Calculate buffer balance
+            if (document.getElementById('largest-expense').value) {
+                var largestExpense = parseFloat(document.getElementById('largest-expense').value);
+                var multiplier = parseFloat(document.getElementById('buffer-multiplier').value);
+                var bufferBalance = largestExpense * multiplier;
+                
+                document.getElementById('buffer-amount').innerText = '$' + bufferBalance.toFixed(0);
+                document.getElementById('buffer-result').style.display = 'block';
+            }
+            
+            // Calculate allocation summary
+            if (document.getElementById('monthly-income').value) {
+                var monthlyIncome = parseFloat(document.getElementById('monthly-income').value);
+                var billsPercentage = parseInt(document.getElementById('bills-percentage').value);
+                var savingsPercentage = parseInt(document.getElementById('savings-percentage').value);
+                var spendingPercentage = parseInt(document.getElementById('spending-percentage').value);
+                var investmentPercentage = parseInt(document.getElementById('investment-percentage').value);
+                
+                document.getElementById('bills-amount').innerText = '$' + (monthlyIncome * billsPercentage / 100).toFixed(0);
+                document.getElementById('savings-amount').innerText = '$' + (monthlyIncome * savingsPercentage / 100).toFixed(0);
+                document.getElementById('spending-amount').innerText = '$' + (monthlyIncome * spendingPercentage / 100).toFixed(0);
+                document.getElementById('investment-amount').innerText = '$' + (monthlyIncome * investmentPercentage / 100).toFixed(0);
+                
+                document.getElementById('allocation-summary').style.display = 'block';
+            }
+            
+            // Scroll to results
+            document.getElementById('implementation-results').scrollIntoView({behavior: 'smooth'});
+        }
+        
+        // Update percentage allocations ensuring they sum to 100%
+        function updatePercentages(changed) {
+            var billsPercentage = parseInt(document.getElementById('bills-percentage').value);
+            var savingsPercentage = parseInt(document.getElementById('savings-percentage').value);
+            var spendingPercentage = parseInt(document.getElementById('spending-percentage').value);
+            var investmentPercentage = parseInt(document.getElementById('investment-percentage').value);
+            
+            var total = billsPercentage + savingsPercentage + spendingPercentage + investmentPercentage;
+            
+            // Ensure total is 100%
+            if (total !== 100) {
+                // Adjust the other sliders proportionally
+                var adjustment = 100 - total;
+                var others = ['bills', 'savings', 'spending', 'investment'].filter(item => item !== changed);
+                
+                // Distribute the adjustment
+                for (var i = 0; i < others.length; i++) {
+                    var currentValue = parseInt(document.getElementById(others[i] + '-percentage').value);
+                    var newValue = Math.max(0, Math.min(100, currentValue + adjustment / others.length));
+                    document.getElementById(others[i] + '-percentage').value = newValue;
+                    document.getElementById(others[i] + '-percentage-value').innerText = newValue;
+                }
+            }
+            
+            // Update the display values
+            document.getElementById('bills-percentage-value').innerText = billsPercentage;
+            document.getElementById('savings-percentage-value').innerText = savingsPercentage;
+            document.getElementById('spending-percentage-value').innerText = spendingPercentage;
+            document.getElementById('investment-percentage-value').innerText = investmentPercentage;
+            
+            // Update allocation summary if income is entered
+            if (document.getElementById('monthly-income').value) {
+                generateImplementationPlan();
+            }
+        }
+        
+        // Update windfall percentages
+        function updateWindfallPercentages(changed) {
+            var emergencyPercentage = parseInt(document.getElementById('windfall-emergency').value);
+            var debtPercentage = parseInt(document.getElementById('windfall-debt').value);
+            var longtermPercentage = parseInt(document.getElementById('windfall-longterm').value);
+            var enjoymentPercentage = parseInt(document.getElementById('windfall-enjoyment').value);
+            
+            var total = emergencyPercentage + debtPercentage + longtermPercentage + enjoymentPercentage;
+            
+            // Ensure total is 100%
+            if (total !== 100) {
+                // Adjust the other sliders proportionally
+                var adjustment = 100 - total;
+                var others = ['emergency', 'debt', 'longterm', 'enjoyment'].filter(item => item !== changed);
+                
+                // Distribute the adjustment
+                for (var i = 0; i < others.length; i++) {
+                    var currentValue = parseInt(document.getElementById('windfall-' + others[i]).value);
+                    var newValue = Math.max(0, Math.min(100, currentValue + adjustment / others.length));
+                    document.getElementById('windfall-' + others[i]).value = newValue;
+                    document.getElementById('windfall-' + others[i] + '-value').innerText = newValue;
+                }
+            }
+            
+            // Update the display values
+            document.getElementById('windfall-emergency-value').innerText = emergencyPercentage;
+            document.getElementById('windfall-debt-value').innerText = debtPercentage;
+            document.getElementById('windfall-longterm-value').innerText = longtermPercentage;
+            document.getElementById('windfall-enjoyment-value').innerText = enjoymentPercentage;
+        }
+        
+        // Add bill row to the bill payment table
+        function addBillRow() {
+            var table = document.getElementById('bill-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="e.g., Bill Name"></td>
+                <td><input type="number" placeholder="Amount" min="0"></td>
+                <td><input type="text" placeholder="e.g., Due Date"></td>
+                <td>
+                    <select>
+                        <option value="manual">Manual</option>
+                        <option value="auto">Automated</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value="bank-billpay">Bank Bill Pay</option>
+                        <option value="merchant-auto">Merchant Auto-Pay</option>
+                        <option value="credit-card">Credit Card</option>
+                    </select>
+                </td>
+            `;
+        }
+        
+        // Account type selection handlers
+        document.getElementById('bills-account-type').addEventListener('change', function() {
+            document.getElementById('bills-account-name').style.display = 
+                this.value === 'same-as-hub' ? 'none' : 'block';
+        });
+        
+        document.getElementById('spending-account-type').addEventListener('change', function() {
+            document.getElementById('spending-account-name').style.display = 
+                this.value === 'same-as-hub' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>
