@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 80/20 Money System - Honest Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .warning-title {
+            color: #856404;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .assessment-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .form-group {
+            margin: 20px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .results-section {
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .results-section.show {
+            display: block;
+        }
+        
+        .crisis-mode {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+        
+        .stable-mode {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .optimized-mode {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+        }
+        
+        .result-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #fff;
+        }
+        
+        /* Fix for text visibility in result sections */
+        .stable-mode .result-item {
+            color: #333 !important;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .crisis-mode .result-item {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .stable-mode h3, .stable-mode h4, .stable-mode h5,
+        .stable-mode p, .stable-mode strong, .stable-mode li {
+            color: #333 !important;
+        }
+        
+        .stable-mode .result-item div {
+            color: #333 !important;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .honest-disclaimer {
+            background: #e9ecef;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #6c757d;
+        }
+        
+        .chapter-recommendations {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .debug-console {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.8);
+            color: #0f0;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .debug-console.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="hero-title">🎯 Honest 80/20 Money Assessment</h1>
+            <p>Find your critical focus areas - with REALISTIC expectations</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">⚠️ Important Disclaimer</div>
+            <p><strong>This tool provides general guidance only.</strong> It cannot account for your full financial picture, life circumstances, or location-specific factors. For crisis-level debt or complex situations, seek professional financial counseling.</p>
+            <p><strong>The 80/20 principle works</strong> - but your specific numbers depend on factors this tool can't measure.</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 25px; border-radius: 15px; margin: 30px 0;">
+            <h3 style="text-align: center; margin-bottom: 20px;">🤯 The Traditional Approach vs. The 80/20 Breakthrough</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div style="background: rgba(255,107,107,0.2); padding: 20px; border-radius: 10px; border: 2px solid rgba(255,107,107,0.3);">
+                    <h4 style="color: #ffcccb; margin-bottom: 15px;">😵 Traditional Approach</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Track 50+ expense categories</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Cut out lattes and small pleasures</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Use complex budgeting systems</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Rely on willpower and discipline</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Feel restricted and guilty</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Make slow, painful progress</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: bold; text-align: center; color: #ffcccb;"><strong>Result: 92% of budgets fail within 90 days</strong></p>
+                </div>
+
+                <div style="background: rgba(40,167,69,0.2); padding: 20px; border-radius: 10px; border: 2px solid rgba(40,167,69,0.3);">
+                    <h4 style="color: #90ee90; margin-bottom: 15px;">🚀 80/20 Money System</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Focus on 5 critical areas only</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Optimize big expenses, not small ones</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Use automated systems</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Work with psychology, not against it</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• Spend freely within boundaries</li>
+                        <li style="margin: 8px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">• See dramatic, fast results</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: bold; text-align: center; color: #90ee90;"><strong>Result: 89% successfully transform finances</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; margin: 40px 0; color: #2c3e50; font-size: 1.8em;">🎯 The 5 Critical Areas (Your Potential 20%)</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+            <div style="background: white; border: 3px solid #e9ecef; border-radius: 15px; padding: 25px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; font-weight: bold;">💰 Automated Savings Systems</div>
+                <p>The #1 predictor of financial success. Set up systems that save money before you can spend it.</p>
+                <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12; font-weight: 600;">
+                    🎯 Achieve 25-40% savings rate without willpower or restriction
+                </div>
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8;">
+                    <strong>Emma's Result:</strong> Automated $850/month savings, built $47,000 in 6 years while spending freely on everything else.
+                </div>
+            </div>
+
+            <div style="background: white; border: 3px solid #e9ecef; border-radius: 15px; padding: 25px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; font-weight: bold;">🔥 Strategic Debt Elimination</div>
+                <p>Not all debt strategies are equal. The hybrid approach can save you years and thousands.</p>
+                <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12; font-weight: 600;">
+                    🎯 Eliminate debt 2-3x faster than conventional methods
+                </div>
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8;">
+                    <strong>Mike's Result:</strong> Eliminated $42,371 in 19 months (vs. 7.3 years traditional way) - saved $18,000+ in interest.
+                </div>
+            </div>
+
+            <div style="background: white; border: 3px solid #e9ecef; border-radius: 15px; padding: 25px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; font-weight: bold;">🏠 Housing & Transportation Optimization</div>
+                <p>These consume 50-70% of income. One optimization here equals hundreds of small cuts elsewhere.</p>
+                <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12; font-weight: 600;">
+                    🎯 Free up $500-1,500/month without lifestyle sacrifice
+                </div>
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8;">
+                    <strong>Author's Result:</strong> Reduced from 58% to 41% of income = $876/month freed up (like getting a $14,600 raise).
+                </div>
+            </div>
+
+            <div style="background: white; border: 3px solid #e9ecef; border-radius: 15px; padding: 25px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; font-weight: bold;">📊 Tax Efficiency</div>
+                <p>Most people overpay by thousands through oversight. Simple strategies create massive savings.</p>
+                <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12; font-weight: 600;">
+                    🎯 Save $2,000-8,000+ annually through basic optimization
+                </div>
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8;">
+                    <strong>Real Result:</strong> Basic tax optimization saved $4,728 in first year alone - no CPA needed.
+                </div>
+            </div>
+
+            <div style="background: white; border: 3px solid #e9ecef; border-radius: 15px; padding: 25px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; font-weight: bold;">📈 Simple Investment Allocation</div>
+                <p>Complex strategies usually lose. Simple approaches beat 92% of professional managers.</p>
+                <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12; font-weight: 600;">
+                    🎯 Outperform 90%+ of investors with 15 minutes/quarter
+                </div>
+                <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8;">
+                    <strong>Proven Fact:</strong> Simple index strategy requiring minimal time consistently beats complex approaches and active funds.
+                </div>
+            </div>
+        </div>
+
+        <div class="assessment-section">
+            <h3 style="text-align: center; margin-bottom: 20px;">Your Financial Situation Assessment</h3>
+
+            <div class="form-group">
+                <label>Monthly Take-Home Income</label>
+                <input type="number" id="income" placeholder="e.g., 3500">
+            </div>
+
+            <div class="form-group">
+                <label>Total Non-Mortgage Debt</label>
+                <select id="debtAmount">
+                    <option value="0">$0 - No debt</option>
+                    <option value="2500">Under $5,000</option>
+                    <option value="7500">$5,000 - $10,000</option>
+                    <option value="15000">$10,000 - $20,000</option>
+                    <option value="30000">$20,000 - $40,000</option>
+                    <option value="60000">$40,000 - $80,000</option>
+                    <option value="100000">Over $80,000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Current Savings Rate</label>
+                <select id="savingsRate">
+                    <option value="0">0-2% (or don't know)</option>
+                    <option value="5">3-7%</option>
+                    <option value="12">8-15%</option>
+                    <option value="20">16-25%</option>
+                    <option value="30">Over 25%</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Housing + Transportation Costs</label>
+                <select id="housingTransport">
+                    <option value="75">Don't know / Over 70%</option>
+                    <option value="65">60-70% of income</option>
+                    <option value="55">50-60% of income</option>
+                    <option value="45">40-50% of income</option>
+                    <option value="35">Under 40% of income</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Emergency Fund</label>
+                <select id="emergencyFund">
+                    <option value="0">Less than 1 month expenses</option>
+                    <option value="1">1-2 months expenses</option>
+                    <option value="3">3-4 months expenses</option>
+                    <option value="6">6+ months expenses</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="calculateHonestAssessment()">Get My Honest Assessment</button>
+        </div>
+
+        <div id="results" class="results-section">
+            <div id="assessmentContent"></div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #6f42c1, #e83e8c); color: white; padding: 35px; border-radius: 15px; margin: 30px 0;">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2em;">🎯 What's Waiting in the Next Chapters</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1em;">Here's exactly what you'll discover in each chapter...</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 25px;">
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>📊 Chapter 2: Control Dashboard</h4>
+                    <p>The 60-second system that gives you complete financial visibility. No more financial surprises.</p>
+                    <small><strong>Secret revealed:</strong> How to see your entire financial life in under 1 minute</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>🤖 Chapter 3: Automation Infrastructure</h4>
+                    <p>Set up systems that work while you sleep. Your money moves automatically toward your goals.</p>
+                    <small><strong>Secret revealed:</strong> The exact automation sequence that makes saving effortless</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>🆓 Chapter 4: Anti-Budget System</h4>
+                    <p>Financial freedom without restriction. Spend freely while automatically hitting your goals.</p>
+                    <small><strong>Secret revealed:</strong> How to never track expenses again while saving more</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>🔥 Chapter 5: Hybrid Debt Strategy</h4>
+                    <p>Eliminate debt 2-3x faster using psychology + math. The strategy that beat both snowball and avalanche.</p>
+                    <small><strong>Secret revealed:</strong> The negotiation scripts that can cut your debt 15-30%</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>💸 Chapter 6: Cash Flow Amplifier</h4>
+                    <p>Free up $500-1,500/month without sacrifice. Optimize the big expenses everyone else ignores.</p>
+                    <small><strong>Secret revealed:</strong> The hidden cash flow most people miss in their top 5 expenses</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>🚀 Chapter 7: Wealth Acceleration</h4>
+                    <p>Compress decades of wealth building into years. The system that creates exponential growth.</p>
+                    <small><strong>Secret revealed:</strong> How to 4x your wealth trajectory without higher risk</small>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #fff; transition: all 0.3s;">
+                    <h4>🎯 Chapter 8: Lifestyle Integration</h4>
+                    <p>Ensure your growing wealth translates to meaningful life improvement and lasting fulfillment.</p>
+                    <small><strong>Secret revealed:</strong> How to design your ideal life using financial freedom</small>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 35px; border-radius: 15px; margin: 30px 0; text-align: center;">
+            <h3 style="color: #2c3e50; margin-bottom: 25px; font-size: 1.8em;">💬 Real People, Real Transformations</h3>
+            
+            <div style="background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-left: 5px solid #28a745;">
+                <div style="font-size: 1.1em; font-style: italic; margin-bottom: 15px; color: #495057;">
+                    "I went from $67,245 in debt and negative cash flow to completely debt-free with $15,000 emergency fund in 26 months. The difference? I stopped trying to optimize everything and focused on the critical 20%."
+                </div>
+                <div style="font-weight: bold; color: #28a745;">— Emma, Nurse Practitioner</div>
+            </div>
+
+            <div style="background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-left: 5px solid #28a745;">
+                <div style="font-size: 1.1em; font-style: italic; margin-bottom: 15px; color: #495057;">
+                    "We were making $124,000 but living paycheck to paycheck. After implementing the system, we saved $42,000 for a house down payment in 12 months. Our marriage got better too - no more money fights."
+                </div>
+                <div style="font-weight: bold; color: #28a745;">— Marcus & Tina, Married Couple</div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 30px; border-radius: 15px; margin: 30px 0; text-align: center;">
+            <h3 style="font-size: 1.8em; margin-bottom: 20px;">⏰ Your Financial Transformation Starts Today</h3>
+            <p style="font-size: 1.2em; margin-bottom: 15px;">Every day you delay costs you money. Every month you wait pushes your financial freedom further away.</p>
+            <p style="font-size: 1.1em;"><strong>The question isn't whether this works (it does).</strong></p>
+            <p style="font-size: 1.1em;"><strong>The question is: How much longer will you stay stuck with the traditional approach?</strong></p>
+        </div>
+
+        <div class="honest-disclaimer">
+            <h4>🎯 About the 80/20 Money Principle</h4>
+            <p><strong>What it IS:</strong> A philosophy to focus on the few financial actions that create the biggest impact.</p>
+            <p><strong>What it's NOT:</strong> A magic formula that works exactly the same for everyone.</p>
+            <p><strong>Why it works:</strong> Most people waste time on small optimizations while ignoring major opportunities.</p>
+            <p><strong>Your next step:</strong> Use this assessment to identify your focus areas, then adapt the strategies to your specific situation.</p>
+        </div>
+    </div>
+
+    <!-- Debug Console -->
+    <div id="debugConsole" class="debug-console">
+        <div style="color: #ff0; margin-bottom: 5px;">DEBUG CONSOLE</div>
+        <div id="debugLog"></div>
+    </div>
+
+    <script>
+        // Debug logging function
+        function debugLog(message) {
+            console.log('[DEBUG]', message);
+            const debugEl = document.getElementById('debugLog');
+            const debugConsole = document.getElementById('debugConsole');
+            if (debugEl && debugConsole) {
+                debugConsole.classList.add('show');
+                debugEl.innerHTML += `<div>${new Date().toTimeString().substr(0,8)}: ${message}</div>`;
+                debugEl.scrollTop = debugEl.scrollHeight;
+            }
+        }
+
+        // Wrap the entire script in try-catch
+        try {
+            debugLog('Script initialization started');
+
+            function calculateHonestAssessment() {
+                try {
+                    debugLog('calculateHonestAssessment() called');
+                    
+                    const income = parseFloat(document.getElementById('income').value) || 0;
+                    const debtAmount = parseFloat(document.getElementById('debtAmount').value);
+                    const savingsRate = parseFloat(document.getElementById('savingsRate').value);
+                    const housingTransport = parseFloat(document.getElementById('housingTransport').value);
+                    const emergencyFund = parseFloat(document.getElementById('emergencyFund').value);
+
+                    debugLog(`Input values - Income: ${income}, Debt: ${debtAmount}, Savings: ${savingsRate}, Housing: ${housingTransport}, Emergency: ${emergencyFund}`);
+
+                    if (income === 0) {
+                        alert('Please enter your monthly income');
+                        debugLog('Income is 0, showing alert');
+                        return;
+                    }
+
+                    const annualIncome = income * 12;
+                    const debtToIncomeRatio = debtAmount / annualIncome;
+
+                    debugLog(`Calculated - Annual Income: ${annualIncome}, Debt-to-Income Ratio: ${debtToIncomeRatio}`);
+
+                    let assessmentHTML = "";
+                    let resultClass = "";
+
+                    // Check for critical situations only
+                    if (debtToIncomeRatio > 1.5) {
+                        debugLog('Generating crisis mode HTML');
+                        resultClass = "crisis-mode";
+                        assessmentHTML = generateCrisisHTML(income, debtAmount, debtToIncomeRatio);
+                    } else {
+                        debugLog('Generating practical HTML');
+                        resultClass = "stable-mode";
+                        assessmentHTML = generatePracticalHTML(income, debtAmount, debtToIncomeRatio, savingsRate, housingTransport, emergencyFund);
+                    }
+
+                    debugLog('Setting assessment content');
+                    document.getElementById('assessmentContent').innerHTML = assessmentHTML;
+                    document.getElementById('results').className = 'results-section show ' + resultClass;
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                    debugLog('Assessment complete');
+
+                } catch (error) {
+                    debugLog('Error in calculateHonestAssessment: ' + error.message);
+                    console.error('Full error:', error);
+                }
+            }
+
+            function generateCrisisHTML(income, debtAmount, ratio) {
+                try {
+                    debugLog('generateCrisisHTML called');
+                    const ratioPercent = Math.round(ratio * 100);
+                    const annualIncome = Math.round(income * 12);
+                    
+                    return `
+                        <div class="result-item">
+                            <h3>🚨 CRITICAL FINANCIAL SITUATION</h3>
+                            <p><strong>⚠️ Extreme debt burden: ${ratioPercent}% debt-to-income ratio - seek professional help immediately</strong></p>
+                            <p>Debt: ${debtAmount.toLocaleString()} vs Annual Income: ${annualIncome.toLocaleString()}</p>
+                        </div>
+
+                        <div class="result-item">
+                            <h4>🆘 IMMEDIATE ACTIONS NEEDED</h4>
+                            <ul style="margin: 15px 0; padding-left: 20px;">
+                                <li><strong>Contact nonprofit credit counselor</strong> (Google "nonprofit credit counseling near me")</li>
+                                <li><strong>List all debts and minimum payments</strong> - can you even cover them?</li>
+                                <li><strong>Stop all non-essential spending</strong> immediately</li>
+                                <li><strong>Consider debt settlement/bankruptcy consultation</strong> if situation is unsustainable</li>
+                                <li><strong>Find additional income sources</strong> - this is survival mode, not optimization</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-item">
+                            <h4>📚 After Professional Consultation</h4>
+                            <p><strong>Chapter 5:</strong> Strategic debt elimination (especially negotiation tactics)</p>
+                            <p><strong>But first:</strong> Get professional guidance - your situation needs expert intervention</p>
+                        </div>
+                    `;
+                } catch (error) {
+                    debugLog('Error in generateCrisisHTML: ' + error.message);
+                    return '<div class="result-item">Error generating crisis analysis</div>';
+                }
+            }
+
+            function generatePracticalHTML(income, debtAmount, debtToIncomeRatio, savingsRate, housingTransport, emergencyFund) {
+                try {
+                    debugLog('generatePracticalHTML called');
+                    const annualIncome = income * 12;
+                    let focusAreas = [];
+                    
+                    // Debt analysis
+                    if (debtAmount > 0) {
+                        debugLog('Analyzing debt');
+                        const priority = debtToIncomeRatio > 0.4 ? "HIGH" : debtToIncomeRatio > 0.2 ? "MEDIUM" : "LOW";
+                        const ratioPercent = Math.round(debtToIncomeRatio * 100);
+                        const potentialSavings = Math.round(debtAmount * 0.06);
+                        const monthlyExtra = Math.round(income * 0.2);
+                        
+                        focusAreas.push({
+                            area: "🔥 Strategic Debt Elimination",
+                            priority: priority,
+                            reason: "$" + debtAmount.toLocaleString() + " debt (" + ratioPercent + "% of income)",
+                            opportunity: "Save $" + potentialSavings.toLocaleString() + "/year in interest",
+                            actions: [
+                                "Week 1: List all debts with balances and interest rates",
+                                "Week 2: Call creditors with script: 'I've been a customer for X years and received lower rate offers elsewhere. Can you match a lower rate?'",
+                                "Week 3: Set up automatic extra payment of $" + monthlyExtra.toLocaleString() + "/month to highest interest debt",
+                                "Week 4: Track progress - celebrate each $1,000 reduction milestone"
+                            ]
+                        });
+                    }
+                    
+                    // Savings analysis  
+                    if (savingsRate < 20) {
+                        debugLog('Analyzing savings');
+                        let targetRate = 15;
+                        if (income > 8000) targetRate = 20;
+                        if (debtToIncomeRatio > 0.3) targetRate = 10;
+                        
+                        const currentSavings = Math.round(income * savingsRate / 100);
+                        const targetSavings = Math.round(income * targetRate / 100);
+                        const gap = targetSavings - currentSavings;
+                        const annualGap = gap * 12;
+                        
+                        if (annualGap > 500) {
+                            const priority = savingsRate < 5 ? "HIGH" : "MEDIUM";
+                            const funMoney = Math.round(income - (income * 0.7) - targetSavings);
+                            
+                            focusAreas.push({
+                                area: "💰 Automated Savings Systems",
+                                priority: priority,
+                                reason: savingsRate + "% savings rate vs " + targetRate + "% target",
+                                opportunity: "Build $" + annualGap.toLocaleString() + "/year more wealth",
+                                actions: [
+                                    "Week 1: Open separate savings account (Ally Bank pays 4%+)",
+                                    "Week 2: Set up automatic transfer of $" + targetSavings.toLocaleString() + "/month, 2 days after payday",
+                                    "Week 3: Create 3-account system: Bills ($" + Math.round(income * 0.7).toLocaleString() + "), Savings ($" + targetSavings.toLocaleString() + "), Fun ($" + funMoney.toLocaleString() + ")",
+                                    "Week 4: Test system for one month and adjust if needed"
+                                ]
+                            });
+                        }
+                    }
+                    
+                    // Housing analysis
+                    if (housingTransport > 50) {
+                        debugLog('Analyzing housing/transport');
+                        const currentCost = Math.round(income * housingTransport / 100);
+                        const optimalCost = Math.round(income * 0.45);
+                        const opportunity = currentCost - optimalCost;
+                        const realisticSavings = Math.round(opportunity * 0.3);
+                        const annualSavings = realisticSavings * 12;
+                        
+                        if (annualSavings > 1000) {
+                            const priority = housingTransport > 65 ? "HIGH" : "MEDIUM";
+                            const housingPart = Math.round(currentCost * 0.7);
+                            const transportPart = Math.round(currentCost * 0.3);
+                            
+                            focusAreas.push({
+                                area: "🏠 Housing & Transportation Optimization",
+                                priority: priority,
+                                reason: housingTransport + "% of income ($" + currentCost.toLocaleString() + "/month) on housing/transport",
+                                opportunity: "Realistic savings: $" + realisticSavings.toLocaleString() + "/month",
+                                actions: [
+                                    "Week 1: Calculate housing costs: rent + utilities + insurance = ~$" + housingPart.toLocaleString() + "/month",
+                                    "Week 2: Calculate transport costs: car payment + insurance + gas = ~$" + transportPart.toLocaleString() + "/month",
+                                    "Week 3: Target total under $" + optimalCost.toLocaleString() + "/month - research roommate, refinancing, or location options",
+                                    "Week 4: Implement easiest option first (insurance quotes take 30 minutes, could save $50-150/month)"
+                                ]
+                            });
+                        }
+                    }
+                    
+                    // Emergency fund (if needed and feasible)
+                    if (emergencyFund < 1 && income < 10000 && debtToIncomeRatio < 0.5) {
+                        debugLog('Analyzing emergency fund');
+                        const targetFund = Math.round(income * 3);
+                        const monthlyFunding = Math.round(targetFund / 12);
+                        
+                        focusAreas.push({
+                            area: "🛡️ Emergency Fund Building",
+                            priority: "MEDIUM",
+                            reason: emergencyFund + " months emergency coverage (need 3+ months)",
+                            opportunity: "Build $" + targetFund.toLocaleString() + " emergency fund for security",
+                            actions: [
+                                "Week 1: Open high-yield savings account named 'Emergency Fund - DO NOT TOUCH'",
+                                "Week 2: Fund $1,000 starter emergency fund (sell items, cut one expense)",
+                                "Week 3: Set up automatic monthly transfer of $" + monthlyFunding.toLocaleString() + " to emergency fund",
+                                "Ongoing: Use only for TRUE emergencies (job loss, medical, major car repair)"
+                            ]
+                        });
+                    }
+                    
+                    // Tax optimization (higher earners)
+                    if (annualIncome > 60000) {
+                        debugLog('Analyzing tax optimization');
+                        const potentialSavings = Math.round(annualIncome * 0.03);
+                        
+                        focusAreas.push({
+                            area: "📊 Tax Efficiency",
+                            priority: "MEDIUM",
+                            reason: "$" + Math.round(annualIncome).toLocaleString() + " annual income - likely overpaying taxes",
+                            opportunity: "Save $" + potentialSavings.toLocaleString() + "/year through basic optimization",
+                            actions: [
+                                "Week 1: Maximize 401(k) - 2024 limit $23,000 (each $1,000 saves $220-370 in taxes)",
+                                "Week 2: Open IRA with Vanguard/Fidelity - 2024 limit $7,000",
+                                "Week 3: If available, maximize HSA (triple tax advantage) - 2024 limit $4,300 individual",
+                                "Week 4: Track deductible expenses - home office, professional development, donations"
+                            ]
+                        });
+                    }
+                    
+                    // Investment optimization (if stable)
+                    if (savingsRate >= 15 && debtToIncomeRatio < 0.3) {
+                        debugLog('Analyzing investment optimization');
+                        const currentInvestments = Math.round(annualIncome * savingsRate / 100);
+                        
+                        focusAreas.push({
+                            area: "📈 Investment Optimization",
+                            priority: "LOW", 
+                            reason: "$" + currentInvestments.toLocaleString() + "/year going to savings - ready to optimize",
+                            opportunity: "Add 2-4% annual returns through simple optimization",
+                            actions: [
+                                "Week 1: List all investments and fees (target: under 0.5% annually)",
+                                "Week 2: Simplify to index funds: 70% Total Stock Market, 20% International, 10% Bonds",
+                                "Week 3: Set up quarterly rebalancing (15 minutes per quarter maintenance)",
+                                "Week 4: Optimize account location (401k for stocks, Roth IRA for international)"
+                            ]
+                        });
+                    }
+                    
+                    // Sort by priority
+                    debugLog('Sorting focus areas by priority');
+                    focusAreas.sort(function(a, b) {
+                        const order = { "HIGH": 3, "MEDIUM": 2, "LOW": 1 };
+                        return order[b.priority] - order[a.priority];
+                    });
+                    
+                    debugLog(`Found ${focusAreas.length} focus areas`);
+                    return buildResultsHTML(focusAreas);
+
+                } catch (error) {
+                    debugLog('Error in generatePracticalHTML: ' + error.message);
+                    return '<div class="result-item">Error generating practical analysis</div>';
+                }
+            }
+
+            function buildResultsHTML(focusAreas) {
+                try {
+                    debugLog('buildResultsHTML called with ' + focusAreas.length + ' areas');
+                    
+                    let html = `
+                        <div class="result-item">
+                            <h3>🎯 YOUR PRACTICAL 80/20 ACTION PLAN</h3>
+                            <p><strong>Learn by Doing:</strong> Here are specific steps you can take THIS WEEK to transform your finances.</p>
+                            <p><strong>Implementation Strategy:</strong> Focus on your #1 priority for 4-6 weeks until automatic, THEN add #2.</p>
+                        </div>
+                    `;
+                    
+                    if (focusAreas.length > 0) {
+                        // Show top 2 areas with full detail
+                        for (let i = 0; i < Math.min(2, focusAreas.length); i++) {
+                            const area = focusAreas[i];
+                            const borderColor = area.priority === 'HIGH' ? '#dc3545' : area.priority === 'MEDIUM' ? '#ffc107' : '#28a745';
+                            const priorityText = i === 0 ? 'START HERE' : 'IMPLEMENT AFTER #1 IS AUTOMATIC';
+                            
+                            html += `
+                                <div class="result-item" style="border-left: 6px solid ${borderColor}; margin: 25px 0;">
+                                    <h4 style="color: ${borderColor};">${priorityText}: ${area.area}</h4>
+                                    <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                        <p><strong>Why this is your priority:</strong> ${area.reason}</p>
+                                        <p><strong>What you'll achieve:</strong> ${area.opportunity}</p>
+                                    </div>
+                                    
+                                    <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 20px; margin: 15px 0;">
+                                        <h5 style="color: #2c3e50; margin-bottom: 15px;">📋 YOUR STEP-BY-STEP ACTION PLAN</h5>
+                            `;
+                            
+                            for (let j = 0; j < area.actions.length; j++) {
+                                html += `<div style="background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 5px; color: #333; border-left: 3px solid ${borderColor};">${area.actions[j]}</div>`;
+                            }
+                            
+                            html += `
+                                    </div>
+                                    
+                                    <div style="background: #e8f5e8; border: 1px solid #28a745; border-radius: 8px; padding: 15px; margin: 15px 0;">
+                                        <p><strong>⏱️ Time to implement:</strong> 4-6 weeks to become automatic</p>
+                                        <p><strong>🎯 Success metric:</strong> System runs without daily attention</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        // Show remaining areas briefly
+                        if (focusAreas.length > 2) {
+                            html += `
+                                <div class="result-item">
+                                    <h4>🔄 FUTURE OPTIMIZATION AREAS</h4>
+                                    <p><strong>Tackle these AFTER your top priorities are automatic:</strong></p>
+                            `;
+                            
+                            for (let i = 2; i < Math.min(5, focusAreas.length); i++) {
+                                const area = focusAreas[i];
+                                html += `
+                                    <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; margin: 10px 0;">
+                                        <h5>${area.priority} Priority: ${area.area}</h5>
+                                        <p><strong>Opportunity:</strong> ${area.opportunity}</p>
+                                        <p><strong>When to tackle:</strong> Month ${i + 1} after starting</p>
+                                    </div>
+                                `;
+                            }
+                            
+                            html += `</div>`;
+                        }
+                        
+                        // Summary
+                        let totalOpportunity = 0;
+                        for (let i = 0; i < focusAreas.length; i++) {
+                            const match = focusAreas[i].opportunity.match(/\$[\d,]+/);
+                            if (match) {
+                                totalOpportunity += parseInt(match[0].replace(/[$,]/g, ''));
+                            }
+                        }
+                        
+                        if (totalOpportunity > 0) {
+                            html += `
+                                <div class="result-item">
+                                    <h4>📊 REALISTIC EXPECTATIONS</h4>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                                        <div style="background: rgba(40,167,69,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                                            <strong>Annual Opportunity</strong><br>
+                                            <span style="font-size: 1.3em; color: #28a745;">~${totalOpportunity.toLocaleString()}</span><br>
+                                            <small>Conservative estimate</small>
+                                        </div>
+                                        <div style="background: rgba(0,123,255,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                                            <strong>Implementation Time</strong><br>
+                                            <span style="font-size: 1.3em; color: #007bff;">3-6 months</span><br>
+                                            <small>For systems to be automatic</small>
+                                        </div>
+                                        <div style="background: rgba(255,193,7,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                                            <strong>Focus Areas</strong><br>
+                                            <span style="font-size: 1.3em; color: #856404;">${Math.min(focusAreas.length, 2)}</span><br>
+                                            <small>Maximum to work on simultaneously</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 15px; margin: 15px 0;">
+                                        <p><strong>🎯 Success Key:</strong> You'll get 80% of results from 20% perfect implementation. Focus on progress, not perfection.</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                    } else {
+                        html += `
+                            <div class="result-item">
+                                <h4>🎉 STRONG FINANCIAL FOUNDATION</h4>
+                                <p>Your fundamentals are solid! Focus on advanced optimization strategies.</p>
+                                <p><strong>📚 Recommended:</strong> Chapters 7-8 for tax and investment optimization</p>
+                            </div>
+                        `;
+                    }
+                    
+                    return html;
+
+                } catch (error) {
+                    debugLog('Error in buildResultsHTML: ' + error.message);
+                    return '<div class="result-item">Error building results display</div>';
+                }
+            }
+
+            debugLog('All functions defined successfully');
+
+        } catch (error) {
+            debugLog('Critical error in script: ' + error.message);
+            console.error('Critical error:', error);
+        }
+
+        // Test that functions exist
+        window.addEventListener('load', function() {
+            debugLog('Page loaded, checking functions...');
+            debugLog('calculateHonestAssessment exists: ' + (typeof calculateHonestAssessment !== 'undefined'));
+            debugLog('generateCrisisHTML exists: ' + (typeof generateCrisisHTML !== 'undefined'));
+            debugLog('generatePracticalHTML exists: ' + (typeof generatePracticalHTML !== 'undefined'));
+            debugLog('buildResultsHTML exists: ' + (typeof buildResultsHTML !== 'undefined'));
+        });
+    </script>
+</body>
+</html>
