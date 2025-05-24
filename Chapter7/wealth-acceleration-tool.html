@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Acceleration Blueprint - 80/20 Money System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e3c72;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #555;
+            font-weight: 300;
+        }
+
+        .phase-navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .phase-btn {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            color: #1e3c72;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .phase-btn:hover::before {
+            left: 100%;
+        }
+
+        .phase-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border-color: #2a5298;
+        }
+
+        .phase-btn.active {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .section {
+            display: none;
+            animation: slideIn 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(30, 60, 114, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.6);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: #2a5298;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            color: #555;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #e0e7ff;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #3a6ab5 100%);
+            width: 0%;
+            transition: width 1.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .allocation-item {
+            background: #f8f9ff;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #e0e7ff;
+            transition: all 0.3s ease;
+        }
+
+        .allocation-item:hover {
+            border-color: #2a5298;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .slider-container {
+            margin: 1rem 0;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e0e7ff;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .strategy-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 5px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .total-impact {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .timeline-container {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            background: white;
+            color: #1e3c72;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            position: relative;
+            padding-left: 3rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: #2a5298;
+            font-weight: 600;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #1e3c72;
+            color: #fff;
+            text-align: left;
+            border-radius: 10px;
+            padding: 1rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .action-button {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.75rem 2rem;
+            background: white;
+            color: #1e3c72;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .phase-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .phase-btn {
+                width: 100%;
+            }
+            
+            .total-impact {
+                font-size: 3rem;
+            }
+        }
+
+        .chart-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        #wealthChart {
+            max-width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wealth Acceleration Blueprint</h1>
+            <p class="subtitle">Transform Linear Growth into Exponential Wealth Building</p>
+        </header>
+
+        <nav class="phase-navigation">
+            <button class="phase-btn active" onclick="showPhase('assessment')">Assessment</button>
+            <button class="phase-btn" onclick="showPhase('foundation')">Phase 1: Foundation</button>
+            <button class="phase-btn" onclick="showPhase('growth')">Phase 2: Growth</button>
+            <button class="phase-btn" onclick="showPhase('freedom')">Phase 3: Freedom</button>
+            <button class="phase-btn" onclick="showPhase('strategies')">Strategies</button>
+            <button class="phase-btn" onclick="showPhase('results')">Your Blueprint</button>
+        </nav>
+
+        <!-- Assessment Section -->
+        <section id="assessment" class="section active">
+            <div class="card">
+                <h2>Wealth Position Assessment</h2>
+                <p>Let's establish your current position and identify acceleration opportunities.</p>
+                
+                <form id="assessmentForm">
+                    <div class="form-group">
+                        <label>Current Age</label>
+                        <input type="number" id="currentAge" min="18" max="100" placeholder="Your current age" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Annual Income (Pre-tax)</label>
+                        <input type="number" id="annualIncome" placeholder="Total annual income before taxes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Net Worth</label>
+                        <input type="number" id="netWorth" placeholder="Total assets minus liabilities" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Monthly Investment Amount</label>
+                        <input type="number" id="monthlyInvestment" placeholder="Amount you invest monthly" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Financial Independence Age</label>
+                        <input type="number" id="targetAge" min="30" max="100" placeholder="Age you want to achieve FI" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Risk Tolerance</label>
+                        <select id="riskTolerance" required>
+                            <option value="">Select your risk tolerance</option>
+                            <option value="conservative">Conservative (Preserve capital)</option>
+                            <option value="moderate">Moderate (Balanced growth)</option>
+                            <option value="aggressive">Aggressive (Maximum growth)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Primary Wealth Goal</label>
+                        <select id="wealthGoal" required>
+                            <option value="">Select your primary goal</option>
+                            <option value="retirement">Traditional Retirement</option>
+                            <option value="fi">Financial Independence/Early Retirement</option>
+                            <option value="legacy">Multi-generational Wealth</option>
+                            <option value="impact">Social Impact & Philanthropy</option>
+                        </select>
+                    </div>
+
+                    <button type="button" onclick="calculateAssessment()">Analyze My Wealth Trajectory</button>
+                </form>
+            </div>
+
+            <div id="assessmentResults" class="card" style="display: none;">
+                <h3>Your Wealth Acceleration Analysis</h3>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <p class="metric-label">Current Trajectory</p>
+                        <p class="metric-value" id="currentTrajectory">0 years</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Acceleration Potential</p>
+                        <p class="metric-value" id="accelerationPotential">0%</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Time Savings</p>
+                        <p class="metric-value" id="timeSavings">0 years</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <h4>Progress to Financial Independence</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="fiProgress">0%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 1: Foundation Section -->
+        <section id="foundation" class="section">
+            <div class="card">
+                <h2>Phase 1: Foundation Acceleration</h2>
+                <p>Build the infrastructure that enables exponential wealth growth.</p>
+                
+                <h3>Emergency Resilience System</h3>
+                <div class="form-group">
+                    <label>Current Emergency Fund</label>
+                    <input type="number" id="emergencyFund" placeholder="Current emergency savings">
+                    <p style="margin-top: 0.5rem; color: #666;">Target: 3-6 months of expenses</p>
+                </div>
+
+                <h3>Strategic Opportunity Fund</h3>
+                <div class="form-group">
+                    <label>Opportunity Fund Allocation (%)</label>
+                    <div class="slider-container">
+                        <input type="range" id="opportunitySlider" min="0" max="20" value="5" oninput="updateOpportunityDisplay()">
+                        <p>Current: <span id="opportunityPercent">5</span>% of portfolio</p>
+                    </div>
+                </div>
+
+                <h3>Tax Efficiency Framework</h3>
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <h4>Tax-Advantaged Accounts</h4>
+                        <label>401(k)/403(b) Contribution</label>
+                        <input type="number" id="retirement401k" placeholder="Annual contribution">
+                        <label>IRA Contribution</label>
+                        <input type="number" id="iraContribution" placeholder="Annual contribution">
+                        <label>HSA Contribution</label>
+                        <input type="number" id="hsaContribution" placeholder="Annual contribution">
+                    </div>
+                    <div class="allocation-item">
+                        <h4>Tax Optimization Strategies</h4>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="taxLossHarvesting">
+                            <label for="taxLossHarvesting" style="display: inline; margin-left: 0.5rem;">Tax Loss Harvesting</label>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="assetLocation">
+                            <label for="assetLocation" style="display: inline; margin-left: 0.5rem;">Asset Location Optimization</label>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="taxBracketManagement">
+                            <label for="taxBracketManagement" style="display: inline; margin-left: 0.5rem;">Tax Bracket Management</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calculateFoundation()">Optimize Foundation Phase</button>
+            </div>
+
+            <div id="foundationResults" class="card" style="display: none;">
+                <h3>Foundation Optimization Results</h3>
+                <div id="foundationMetrics"></div>
+            </div>
+        </section>
+
+        <!-- Phase 2: Growth Section -->
+        <section id="growth" class="section">
+            <div class="card">
+                <h2>Phase 2: Growth Acceleration</h2>
+                <p>Transform your foundation into a dynamic wealth growth engine.</p>
+                
+                <h3>Strategic Asset Allocation</h3>
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <h4>Core Portfolio</h4>
+                        <label>Stocks (%) <span class="tooltip">ℹ️<span class="tooltiptext">Equities provide long-term growth potential but with higher volatility. Consider index funds for diversification.</span></span></label>
+                        <input type="range" id="stockAllocation" min="0" max="100" value="60" oninput="updateAllocation()">
+                        <p>Current: <span id="stockPercent">60</span>%</p>
+                        
+                        <label>Bonds (%) <span class="tooltip">ℹ️<span class="tooltiptext">Bonds provide stability and income but lower growth. Important for risk management.</span></span></label>
+                        <input type="range" id="bondAllocation" min="0" max="100" value="30" oninput="updateAllocation()">
+                        <p>Current: <span id="bondPercent">30</span>%</p>
+                        
+                        <label>Alternatives (%) <span class="tooltip">ℹ️<span class="tooltiptext">REITs, commodities, and other alternatives for additional diversification.</span></span></label>
+                        <input type="range" id="altAllocation" min="0" max="100" value="10" oninput="updateAllocation()">
+                        <p>Current: <span id="altPercent">10</span>%</p>
+                        
+                        <p style="margin-top: 1rem; font-weight: 600;">Total: <span id="totalAllocation">100</span>%</p>
+                    </div>
+                    
+                    <div class="allocation-item">
+                        <h4>Return Enhancement Strategies</h4>
+                        <div class="strategy-card">
+                            <h5>Fee Minimization</h5>
+                            <p>Average expense ratio: <input type="number" id="expenseRatio" step="0.01" value="0.50" style="width: 80px; display: inline;">%</p>
+                            <p style="color: #666; font-size: 0.9rem;">Target: &lt;0.20% for index funds</p>
+                        </div>
+                        <div class="strategy-card">
+                            <h5>Rebalancing Frequency</h5>
+                            <select id="rebalanceFreq" style="margin-top: 0.5rem;">
+                                <option value="never">Never</option>
+                                <option value="annual">Annual</option>
+                                <option value="semiannual">Semi-annual</option>
+                                <option value="quarterly">Quarterly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Income Acceleration Strategy</h3>
+                <div class="form-group">
+                    <label>Primary Income Growth Plan</label>
+                    <select id="incomeGrowth">
+                        <option value="">Select strategy</option>
+                        <option value="promotion">Pursue promotion/raise</option>
+                        <option value="jobchange">Strategic job change</option>
+                        <option value="skills">Skill development & certification</option>
+                        <option value="negotiate">Compensation negotiation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Side Income Potential (Monthly)</label>
+                    <input type="number" id="sideIncome" placeholder="Potential side income">
+                </div>
+
+                <button onclick="calculateGrowth()">Optimize Growth Phase</button>
+            </div>
+
+            <div id="growthResults" class="card" style="display: none;">
+                <h3>Growth Phase Optimization Results</h3>
+                <div id="growthMetrics"></div>
+            </div>
+        </section>
+
+        <!-- Phase 3: Freedom Section -->
+        <section id="freedom" class="section">
+            <div class="card">
+                <h2>Phase 3: Freedom Acceleration</h2>
+                <p>Convert your wealth engine into sustainable financial independence.</p>
+                
+                <h3>Financial Independence Calculator</h3>
+                <div class="form-group">
+                    <label>Annual Expenses in Retirement</label>
+                    <input type="number" id="annualExpenses" placeholder="Expected annual expenses">
+                </div>
+
+                <div class="form-group">
+                    <label>Safe Withdrawal Rate (%)</label>
+                    <select id="withdrawalRate">
+                        <option value="3">3% (Very Conservative)</option>
+                        <option value="3.5">3.5% (Conservative)</option>
+                        <option value="4" selected>4% (Standard)</option>
+                        <option value="4.5">4.5% (Moderate)</option>
+                        <option value="5">5% (Aggressive)</option>
+                    </select>
+                </div>
+
+                <h3>Income Generation Strategy</h3>
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <h4>Passive Income Streams</h4>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="dividendIncome">
+                            <label for="dividendIncome" style="display: inline; margin-left: 0.5rem;">Dividend Income</label>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="rentalIncome">
+                            <label for="rentalIncome" style="display: inline; margin-left: 0.5rem;">Rental Income</label>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="businessIncome">
+                            <label for="businessIncome" style="display: inline; margin-left: 0.5rem;">Business Income</label>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <input type="checkbox" id="royaltyIncome">
+                            <label for="royaltyIncome" style="display: inline; margin-left: 0.5rem;">Royalty/Licensing Income</label>
+                        </div>
+                    </div>
+                    
+                    <div class="allocation-item">
+                        <h4>Withdrawal Strategy</h4>
+                        <label>Tax-Optimized Withdrawal Order</label>
+                        <ol style="margin-top: 0.5rem; padding-left: 1.5rem; color: #666;">
+                            <li>Taxable accounts (capital gains)</li>
+                            <li>Tax-deferred (401k/IRA)</li>
+                            <li>Tax-free (Roth IRA)</li>
+                        </ol>
+                        <div style="margin-top: 1rem;">
+                            <input type="checkbox" id="laddering">
+                            <label for="laddering" style="display: inline; margin-left: 0.5rem;">Roth Conversion Ladder</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calculateFreedom()">Calculate Freedom Timeline</button>
+            </div>
+
+            <div id="freedomResults" class="card" style="display: none;">
+                <h3>Financial Independence Analysis</h3>
+                <div id="freedomMetrics"></div>
+            </div>
+        </section>
+
+        <!-- Strategies Section -->
+        <section id="strategies" class="section">
+            <div class="card">
+                <h2>80/20 Wealth Acceleration Strategies</h2>
+                <p>Apply the most powerful wealth-building strategies for maximum impact.</p>
+                
+                <h3>Strategic Capital Deployment</h3>
+                <div class="strategy-card">
+                    <h4>Capital Allocation Grid</h4>
+                    <p>Rank your investment opportunities by expected return and risk:</p>
+                    <div id="capitalGrid" style="margin-top: 1rem;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f0f4ff;">
+                                    <th style="padding: 0.75rem; text-align: left;">Opportunity</th>
+                                    <th style="padding: 0.75rem;">Expected Return</th>
+                                    <th style="padding: 0.75rem;">Risk Level</th>
+                                    <th style="padding: 0.75rem;">Allocation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="opportunityList">
+                                <tr>
+                                    <td style="padding: 0.75rem;">Index Funds</td>
+                                    <td style="padding: 0.75rem; text-align: center;">7-10%</td>
+                                    <td style="padding: 0.75rem; text-align: center;">Medium</td>
+                                    <td style="padding: 0.75rem; text-align: center;"><input type="number" style="width: 80px;" placeholder="%"></td>
+                                </tr>
+                                <tr style="background: #f8f9ff;">
+                                    <td style="padding: 0.75rem;">Real Estate</td>
+                                    <td style="padding: 0.75rem; text-align: center;">8-12%</td>
+                                    <td style="padding: 0.75rem; text-align: center;">Medium-High</td>
+                                    <td style="padding: 0.75rem; text-align: center;"><input type="number" style="width: 80px;" placeholder="%"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.75rem;">Business/Side Hustle</td>
+                                    <td style="padding: 0.75rem; text-align: center;">15-30%+</td>
+                                    <td style="padding: 0.75rem; text-align: center;">High</td>
+                                    <td style="padding: 0.75rem; text-align: center;"><input type="number" style="width: 80px;" placeholder="%"></td>
+                                </tr>
+                                <tr style="background: #f8f9ff;">
+                                    <td style="padding: 0.75rem;">Bonds</td>
+                                    <td style="padding: 0.75rem; text-align: center;">3-5%</td>
+                                    <td style="padding: 0.75rem; text-align: center;">Low</td>
+                                    <td style="padding: 0.75rem; text-align: center;"><input type="number" style="width: 80px;" placeholder="%"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h3>Return Maximization System</h3>
+                <div class="allocation-grid">
+                    <div class="allocation-item">
+                        <h4>Fee Audit Checklist</h4>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="expenseCheck">
+                            <label for="expenseCheck" style="display: inline; margin-left: 0.5rem;">All funds &lt;0.20% expense ratio</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="advisorCheck">
+                            <label for="advisorCheck" style="display: inline; margin-left: 0.5rem;">No unnecessary advisor fees</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="transactionCheck">
+                            <label for="transactionCheck" style="display: inline; margin-left: 0.5rem;">Minimal transaction costs</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="hiddenCheck">
+                            <label for="hiddenCheck" style="display: inline; margin-left: 0.5rem;">No hidden 12b-1 fees</label>
+                        </div>
+                    </div>
+                    
+                    <div class="allocation-item">
+                        <h4>Tax Optimization Checklist</h4>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="maxContributions">
+                            <label for="maxContributions" style="display: inline; margin-left: 0.5rem;">Max all tax-advantaged accounts</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="assetLocationOpt">
+                            <label for="assetLocationOpt" style="display: inline; margin-left: 0.5rem;">Bonds in IRA, stocks in taxable</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="harvestingActive">
+                            <label for="harvestingActive" style="display: inline; margin-left: 0.5rem;">Tax loss harvesting active</label>
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <input type="checkbox" id="bracketAware">
+                            <label for="bracketAware" style="display: inline; margin-left: 0.5rem;">Tax bracket optimization</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="generateStrategies()">Generate My Custom Strategies</button>
+            </div>
+
+            <div id="strategiesResults" class="card" style="display: none;">
+                <h3>Your Personalized Acceleration Strategies</h3>
+                <div id="strategiesList"></div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="section">
+            <div class="card">
+                <h2>Your Wealth Acceleration Blueprint</h2>
+                
+                <div class="results-section">
+                    <h3>Wealth Acceleration Impact</h3>
+                    <p class="total-impact" id="totalAcceleration">0 Years</p>
+                    <p>Faster to Financial Independence</p>
+                    
+                    <div class="metric-grid" style="margin-top: 2rem;">
+                        <div class="metric-card" style="background: white; color: #1e3c72;">
+                            <p class="metric-label">Original Timeline</p>
+                            <p class="metric-value" id="originalTimeline">0 years</p>
+                        </div>
+                        <div class="metric-card" style="background: white; color: #1e3c72;">
+                            <p class="metric-label">Accelerated Timeline</p>
+                            <p class="metric-value" id="acceleratedTimeline">0 years</p>
+                        </div>
+                        <div class="metric-card" style="background: white; color: #1e3c72;">
+                            <p class="metric-label">Additional Wealth</p>
+                            <p class="metric-value" id="additionalWealth">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Wealth Trajectory Comparison</h3>
+                    <canvas id="wealthChart"></canvas>
+                </div>
+
+                <h3>Implementation Timeline</h3>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <h4>Weeks 1-2: Foundation Setup</h4>
+                        <ul>
+                            <li>Establish emergency fund target</li>
+                            <li>Open tax-advantaged accounts</li>
+                            <li>Set up automatic investments</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Weeks 3-4: Optimization</h4>
+                        <ul>
+                            <li>Complete fee audit and reduce expenses</li>
+                            <li>Implement asset location strategy</li>
+                            <li>Begin tax optimization tactics</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Month 2: Growth Acceleration</h4>
+                        <ul>
+                            <li>Launch income enhancement strategy</li>
+                            <li>Optimize investment allocations</li>
+                            <li>Establish rebalancing schedule</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Months 3-6: Momentum Building</h4>
+                        <ul>
+                            <li>Scale successful strategies</li>
+                            <li>Monitor and adjust allocations</li>
+                            <li>Explore advanced opportunities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="window.print()" class="action-button">Print Blueprint</button>
+                    <button onclick="downloadBlueprint()" class="action-button">Download Report</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Global variables to store user data
+        let userData = {
+            assessment: {},
+            foundation: {},
+            growth: {},
+            freedom: {},
+            strategies: [],
+            acceleration: {
+                originalYears: 0,
+                acceleratedYears: 0,
+                timeSaved: 0,
+                additionalWealth: 0
+            }
+        };
+
+        // Navigation functions
+        function showPhase(phaseId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(phaseId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Assessment calculations
+        function calculateAssessment() {
+            // Get form values
+            userData.assessment = {
+                age: parseInt(document.getElementById('currentAge').value) || 30,
+                income: parseFloat(document.getElementById('annualIncome').value) || 0,
+                netWorth: parseFloat(document.getElementById('netWorth').value) || 0,
+                monthlyInvestment: parseFloat(document.getElementById('monthlyInvestment').value) || 0,
+                targetAge: parseInt(document.getElementById('targetAge').value) || 65,
+                riskTolerance: document.getElementById('riskTolerance').value,
+                wealthGoal: document.getElementById('wealthGoal').value
+            };
+
+            // Calculate current trajectory
+            const yearsToFI = userData.assessment.targetAge - userData.assessment.age;
+            const currentSavingsRate = (userData.assessment.monthlyInvestment * 12) / userData.assessment.income;
+            const projectedGrowthRate = userData.assessment.riskTolerance === 'conservative' ? 0.06 : 
+                                       userData.assessment.riskTolerance === 'moderate' ? 0.08 : 0.10;
+
+            // Calculate FI number (25x annual expenses, estimated as 70% of current income)
+            const estimatedAnnualExpenses = userData.assessment.income * 0.7;
+            const fiNumber = estimatedAnnualExpenses * 25;
+
+            // Calculate years to FI with current trajectory
+            const annualContribution = userData.assessment.monthlyInvestment * 12;
+            let currentTrajectoryYears = calculateYearsToFI(
+                userData.assessment.netWorth,
+                annualContribution,
+                projectedGrowthRate,
+                fiNumber
+            );
+
+            // Calculate acceleration potential (with optimized strategies)
+            const optimizedSavingsRate = Math.min(currentSavingsRate * 1.5, 0.5); // 50% increase, max 50%
+            const optimizedAnnualContribution = userData.assessment.income * optimizedSavingsRate;
+            const optimizedGrowthRate = projectedGrowthRate + 0.02; // 2% improvement through optimization
+            
+            let acceleratedYears = calculateYearsToFI(
+                userData.assessment.netWorth,
+                optimizedAnnualContribution,
+                optimizedGrowthRate,
+                fiNumber
+            );
+
+            // Store results
+            userData.acceleration.originalYears = currentTrajectoryYears;
+            userData.acceleration.acceleratedYears = acceleratedYears;
+            userData.acceleration.timeSaved = currentTrajectoryYears - acceleratedYears;
+
+            // Calculate progress percentage
+            const progressPercent = (userData.assessment.netWorth / fiNumber * 100).toFixed(1);
+
+            // Display results
+            document.getElementById('currentTrajectory').textContent = `${currentTrajectoryYears} years`;
+            document.getElementById('accelerationPotential').textContent = 
+                `${((userData.acceleration.timeSaved / currentTrajectoryYears) * 100).toFixed(0)}%`;
+            document.getElementById('timeSavings').textContent = `${userData.acceleration.timeSaved} years`;
+            
+            // Update progress bar
+            const progressBar = document.getElementById('fiProgress');
+            progressBar.style.width = `${Math.min(progressPercent, 100)}%`;
+            progressBar.textContent = `${progressPercent}%`;
+
+            document.getElementById('assessmentResults').style.display = 'block';
+        }
+
+        // Helper function to calculate years to FI
+        function calculateYearsToFI(currentAmount, annualContribution, growthRate, targetAmount) {
+            let years = 0;
+            let balance = currentAmount;
+            
+            while (balance < targetAmount && years < 100) {
+                balance = balance * (1 + growthRate) + annualContribution;
+                years++;
+            }
+            
+            return years;
+        }
+
+        // Foundation phase calculations
+        function calculateFoundation() {
+            const emergencyFund = parseFloat(document.getElementById('emergencyFund').value) || 0;
+            const monthlyExpenses = userData.assessment.income / 12 * 0.7; // Estimated
+            const targetEmergency = monthlyExpenses * 6;
+            
+            const retirement401k = parseFloat(document.getElementById('retirement401k').value) || 0;
+            const iraContribution = parseFloat(document.getElementById('iraContribution').value) || 0;
+            const hsaContribution = parseFloat(document.getElementById('hsaContribution').value) || 0;
+            
+            // Calculate tax savings
+            const marginalTaxRate = userData.assessment.income > 100000 ? 0.32 : 0.24;
+            const taxSavings = (retirement401k + iraContribution + hsaContribution) * marginalTaxRate;
+            
+            // Check optimization strategies
+            const taxOptimizations = {
+                harvesting: document.getElementById('taxLossHarvesting').checked,
+                location: document.getElementById('assetLocation').checked,
+                bracket: document.getElementById('taxBracketManagement').checked
+            };
+            
+            // Calculate additional benefits
+            let additionalSavings = 0;
+            if (taxOptimizations.harvesting) additionalSavings += userData.assessment.netWorth * 0.003; // 0.3% benefit
+            if (taxOptimizations.location) additionalSavings += userData.assessment.netWorth * 0.005; // 0.5% benefit
+            if (taxOptimizations.bracket) additionalSavings += userData.assessment.income * 0.02; // 2% of income
+            
+            // Display results
+            let resultsHTML = `
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <p class="metric-label">Emergency Fund Status</p>
+                        <p class="metric-value">${((emergencyFund / targetEmergency) * 100).toFixed(0)}%</p>
+                        <p style="font-size: 0.9rem; color: #666;">Need: $${(targetEmergency - emergencyFund).toFixed(0)} more</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Annual Tax Savings</p>
+                        <p class="metric-value">$${taxSavings.toFixed(0)}</p>
+                        <p style="font-size: 0.9rem; color: #666;">From retirement contributions</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Optimization Benefits</p>
+                        <p class="metric-value">$${additionalSavings.toFixed(0)}</p>
+                        <p style="font-size: 0.9rem; color: #666;">Annual additional savings</p>
+                    </div>
+                </div>
+                <div class="strategy-card" style="margin-top: 2rem;">
+                    <h4>Foundation Action Items</h4>
+                    <ul>
+                        ${emergencyFund < targetEmergency ? '<li>Build emergency fund to 6 months expenses</li>' : ''}
+                        ${retirement401k < 22500 ? '<li>Increase 401(k) contributions to maximum</li>' : ''}
+                        ${!taxOptimizations.harvesting ? '<li>Implement tax loss harvesting strategy</li>' : ''}
+                        ${!taxOptimizations.location ? '<li>Optimize asset location across accounts</li>' : ''}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('foundationMetrics').innerHTML = resultsHTML;
+            document.getElementById('foundationResults').style.display = 'block';
+            
+            // Store foundation data
+            userData.foundation = {
+                emergencyFund,
+                taxSavings,
+                additionalSavings,
+                optimizations: taxOptimizations
+            };
+        }
+
+        // Opportunity slider update
+        function updateOpportunityDisplay() {
+            const value = document.getElementById('opportunitySlider').value;
+            document.getElementById('opportunityPercent').textContent = value;
+        }
+
+        // Asset allocation updates
+        function updateAllocation() {
+            const stocks = parseInt(document.getElementById('stockAllocation').value);
+            const bonds = parseInt(document.getElementById('bondAllocation').value);
+            const alts = parseInt(document.getElementById('altAllocation').value);
+            
+            document.getElementById('stockPercent').textContent = stocks;
+            document.getElementById('bondPercent').textContent = bonds;
+            document.getElementById('altPercent').textContent = alts;
+            
+            const total = stocks + bonds + alts;
+            document.getElementById('totalAllocation').textContent = total;
+            
+            // Color code if not 100%
+            const totalElement = document.getElementById('totalAllocation');
+            if (total !== 100) {
+                totalElement.style.color = '#e74c3c';
+            } else {
+                totalElement.style.color = '#27ae60';
+            }
+        }
+
+        // Growth phase calculations
+        function calculateGrowth() {
+            const stockAllocation = parseInt(document.getElementById('stockAllocation').value) / 100;
+            const bondAllocation = parseInt(document.getElementById('bondAllocation').value) / 100;
+            const altAllocation = parseInt(document.getElementById('altAllocation').value) / 100;
+            const expenseRatio = parseFloat(document.getElementById('expenseRatio').value) / 100;
+            const rebalanceFreq = document.getElementById('rebalanceFreq').value;
+            const incomeGrowth = document.getElementById('incomeGrowth').value;
+            const sideIncome = parseFloat(document.getElementById('sideIncome').value) || 0;
+            
+            // Calculate expected returns
+            const stockReturn = 0.10; // 10% historical average
+            const bondReturn = 0.04; // 4% average
+            const altReturn = 0.08; // 8% for alternatives
+            
+            const grossReturn = (stockAllocation * stockReturn) + 
+                               (bondAllocation * bondReturn) + 
+                               (altAllocation * altReturn);
+            const netReturn = grossReturn - expenseRatio;
+            
+            // Calculate rebalancing bonus
+            let rebalanceBonus = 0;
+            switch(rebalanceFreq) {
+                case 'annual': rebalanceBonus = 0.003; break; // 0.3%
+                case 'semiannual': rebalanceBonus = 0.004; break; // 0.4%
+                case 'quarterly': rebalanceBonus = 0.005; break; // 0.5%
+            }
+            
+            // Calculate income growth impact
+            let incomeBoost = 0;
+            switch(incomeGrowth) {
+                case 'promotion': incomeBoost = userData.assessment.income * 0.15; break; // 15%
+                case 'jobchange': incomeBoost = userData.assessment.income * 0.20; break; // 20%
+                case 'skills': incomeBoost = userData.assessment.income * 0.10; break; // 10%
+                case 'negotiate': incomeBoost = userData.assessment.income * 0.08; break; // 8%
+            }
+            
+            const totalIncomeBoost = incomeBoost + (sideIncome * 12);
+            const optimizedReturn = netReturn + rebalanceBonus;
+            
+            // Display results
+            let resultsHTML = `
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <p class="metric-label">Expected Portfolio Return</p>
+                        <p class="metric-value">${(optimizedReturn * 100).toFixed(1)}%</p>
+                        <p style="font-size: 0.9rem; color: #666;">After fees and optimization</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Income Growth Potential</p>
+                        <p class="metric-value">$${totalIncomeBoost.toFixed(0)}</p>
+                        <p style="font-size: 0.9rem; color: #666;">Annual income increase</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">FI Acceleration</p>
+                        <p class="metric-value">${calculateAccelerationFromGrowth(optimizedReturn, totalIncomeBoost)} years</p>
+                        <p style="font-size: 0.9rem; color: #666;">Faster to independence</p>
+                    </div>
+                </div>
+                <div class="strategy-card" style="margin-top: 2rem;">
+                    <h4>Growth Optimization Actions</h4>
+                    <ul>
+                        ${expenseRatio > 0.002 ? '<li>Reduce investment fees to under 0.20%</li>' : ''}
+                        ${rebalanceFreq === 'never' ? '<li>Implement annual rebalancing strategy</li>' : ''}
+                        ${!incomeGrowth ? '<li>Develop income growth strategy</li>' : ''}
+                        ${sideIncome === 0 ? '<li>Explore side income opportunities</li>' : ''}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('growthMetrics').innerHTML = resultsHTML;
+            document.getElementById('growthResults').style.display = 'block';
+            
+            // Store growth data
+            userData.growth = {
+                allocation: { stocks: stockAllocation, bonds: bondAllocation, alts: altAllocation },
+                return: optimizedReturn,
+                incomeBoost: totalIncomeBoost,
+                expenseRatio
+            };
+        }
+
+        // Helper function to calculate acceleration from growth improvements
+        function calculateAccelerationFromGrowth(improvedReturn, incomeBoost) {
+            const currentReturn = 0.08; // Baseline
+            const currentIncome = userData.assessment.income;
+            const newIncome = currentIncome + incomeBoost;
+            
+            // Rough calculation of years saved
+            const returnImprovement = (improvedReturn - currentReturn) * 100;
+            const incomeImprovement = (incomeBoost / currentIncome) * 100;
+            
+            return Math.round((returnImprovement + incomeImprovement) * 0.3); // Rough multiplier
+        }
+
+        // Freedom phase calculations
+        function calculateFreedom() {
+            const annualExpenses = parseFloat(document.getElementById('annualExpenses').value) || 
+                                  (userData.assessment.income * 0.7); // Default to 70% of income
+            const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
+            
+            // Calculate FI number
+            const fiNumber = annualExpenses / withdrawalRate;
+            
+            // Check income streams
+            const incomeStreams = {
+                dividend: document.getElementById('dividendIncome').checked,
+                rental: document.getElementById('rentalIncome').checked,
+                business: document.getElementById('businessIncome').checked,
+                royalty: document.getElementById('royaltyIncome').checked
+            };
+            
+            // Estimate passive income
+            let passiveIncome = 0;
+            if (incomeStreams.dividend) passiveIncome += fiNumber * 0.02; // 2% dividend yield
+            if (incomeStreams.rental) passiveIncome += annualExpenses * 0.2; // 20% from rentals
+            if (incomeStreams.business) passiveIncome += annualExpenses * 0.3; // 30% from business
+            if (incomeStreams.royalty) passiveIncome += annualExpenses * 0.1; // 10% from royalties
+            
+            const coverageRatio = (passiveIncome / annualExpenses * 100).toFixed(1);
+            const remainingNeeded = Math.max(0, fiNumber - userData.assessment.netWorth);
+            
+            // Display results
+            let resultsHTML = `
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <p class="metric-label">FI Number</p>
+                        <p class="metric-value">$${(fiNumber / 1000000).toFixed(2)}M</p>
+                        <p style="font-size: 0.9rem; color: #666;">Target portfolio size</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Passive Income Coverage</p>
+                        <p class="metric-value">${coverageRatio}%</p>
+                        <p style="font-size: 0.9rem; color: #666;">Of annual expenses</p>
+                    </div>
+                    <div class="metric-card">
+                        <p class="metric-label">Remaining to FI</p>
+                        <p class="metric-value">$${(remainingNeeded / 1000).toFixed(0)}k</p>
+                        <p style="font-size: 0.9rem; color: #666;">Additional needed</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <h4>Progress to Financial Independence</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${Math.min((userData.assessment.netWorth / fiNumber * 100), 100)}%">
+                            ${(userData.assessment.netWorth / fiNumber * 100).toFixed(1)}%
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('freedomMetrics').innerHTML = resultsHTML;
+            document.getElementById('freedomResults').style.display = 'block';
+            
+            // Store freedom data
+            userData.freedom = {
+                fiNumber,
+                withdrawalRate,
+                passiveIncome,
+                incomeStreams
+            };
+        }
+
+        // Generate personalized strategies
+        function generateStrategies() {
+            let strategiesHTML = '<div class="timeline-container">';
+            
+            // Based on user data, generate custom strategies
+            const strategies = [];
+            
+            // Fee optimization
+            if (!document.getElementById('expenseCheck').checked) {
+                strategies.push({
+                    title: 'Investment Fee Optimization',
+                    description: 'Switch to low-cost index funds',
+                    impact: 'Save 0.5-1% annually on returns',
+                    priority: 'High'
+                });
+            }
+            
+            // Tax optimization
+            if (!document.getElementById('maxContributions').checked) {
+                strategies.push({
+                    title: 'Max Tax-Advantaged Accounts',
+                    description: 'Increase 401(k), IRA, HSA contributions',
+                    impact: `Save $${(userData.assessment.income * 0.25 * 0.3).toFixed(0)} in taxes annually`,
+                    priority: 'High'
+                });
+            }
+            
+            // Income optimization
+            if (userData.assessment.monthlyInvestment < userData.assessment.income / 12 * 0.2) {
+                strategies.push({
+                    title: 'Increase Savings Rate',
+                    description: 'Target 20%+ savings rate through optimization',
+                    impact: 'Accelerate FI by 5-10 years',
+                    priority: 'High'
+                });
+            }
+            
+            // Asset allocation
+            strategies.push({
+                title: 'Strategic Asset Allocation',
+                description: 'Optimize stock/bond mix for your age and goals',
+                impact: 'Improve risk-adjusted returns by 1-2%',
+                priority: 'Medium'
+            });
+            
+            // Generate HTML for strategies
+            strategies.forEach((strategy, index) => {
+                strategiesHTML += `
+                    <div class="timeline-item">
+                        <h4>${strategy.title}</h4>
+                        <p>${strategy.description}</p>
+                        <p><strong>Impact:</strong> ${strategy.impact}</p>
+                        <p><strong>Priority:</strong> <span style="color: ${strategy.priority === 'High' ? '#e74c3c' : '#f39c12'}">
+                            ${strategy.priority}
+                        </span></p>
+                    </div>
+                `;
+            });
+            
+            strategiesHTML += '</div>';
+            
+            document.getElementById('strategiesList').innerHTML = strategiesHTML;
+            document.getElementById('strategiesResults').style.display = 'block';
+            
+            // Update final results
+            updateFinalResults();
+        }
+
+        // Update final results and create visualization
+        function updateFinalResults() {
+            // Calculate total impact
+            const originalYears = userData.acceleration.originalYears || 30;
+            const optimizations = 5; // Years saved through various optimizations
+            const acceleratedYears = Math.max(originalYears - optimizations, 5);
+            const additionalWealth = calculateAdditionalWealth();
+            
+            // Update display
+            document.getElementById('totalAcceleration').textContent = `${originalYears - acceleratedYears} Years`;
+            document.getElementById('originalTimeline').textContent = `${originalYears} years`;
+            document.getElementById('acceleratedTimeline').textContent = `${acceleratedYears} years`;
+            document.getElementById('additionalWealth').textContent = `$${(additionalWealth / 1000000).toFixed(1)}M`;
+            
+            // Create wealth trajectory chart
+            createWealthChart(originalYears, acceleratedYears);
+        }
+
+        // Calculate additional wealth from optimization
+        function calculateAdditionalWealth() {
+            const monthlyInvestment = userData.assessment.monthlyInvestment || 1000;
+            const optimizedMonthly = monthlyInvestment * 1.5; // 50% increase through optimization
+            const years = 20; // 20-year projection
+            const baseReturn = 0.08;
+            const optimizedReturn = 0.10;
+            
+            // Calculate future values
+            const baseFV = calculateFutureValue(userData.assessment.netWorth, monthlyInvestment, baseReturn, years);
+            const optimizedFV = calculateFutureValue(userData.assessment.netWorth, optimizedMonthly, optimizedReturn, years);
+            
+            return optimizedFV - baseFV;
+        }
+
+        // Future value calculator
+        function calculateFutureValue(principal, monthlyContribution, annualReturn, years) {
+            const monthlyReturn = annualReturn / 12;
+            const months = years * 12;
+            
+            // FV of initial principal
+            const principalFV = principal * Math.pow(1 + annualReturn, years);
+            
+            // FV of monthly contributions
+            const contributionsFV = monthlyContribution * 
+                ((Math.pow(1 + monthlyReturn, months) - 1) / monthlyReturn);
+            
+            return principalFV + contributionsFV;
+        }
+
+        // Create wealth trajectory chart
+        function createWealthChart(originalYears, acceleratedYears) {
+            const canvas = document.getElementById('wealthChart');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 400;
+            
+            // Chart settings
+            const padding = 40;
+            const chartWidth = canvas.width - padding * 2;
+            const chartHeight = canvas.height - padding * 2;
+            
+            // Generate data points
+            const years = Math.max(originalYears, 30);
+            const originalData = [];
+            const acceleratedData = [];
+            
+            for (let year = 0; year <= years; year++) {
+                const originalWealth = calculateFutureValue(
+                    userData.assessment.netWorth,
+                    userData.assessment.monthlyInvestment,
+                    0.08,
+                    year
+                );
+                const acceleratedWealth = calculateFutureValue(
+                    userData.assessment.netWorth,
+                    userData.assessment.monthlyInvestment * 1.5,
+                    0.10,
+                    year
+                );
+                
+                originalData.push({ x: year, y: originalWealth });
+                acceleratedData.push({ x: year, y: acceleratedWealth });
+            }
+            
+            // Find max value for scaling
+            const maxWealth = Math.max(
+                ...originalData.map(d => d.y),
+                ...acceleratedData.map(d => d.y)
+            );
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw axes
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, canvas.height - padding);
+            ctx.lineTo(canvas.width - padding, canvas.height - padding);
+            ctx.stroke();
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(canvas.width - padding, y);
+                ctx.stroke();
+                
+                // Y-axis labels
+                ctx.fillStyle = '#666';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'right';
+                const value = ((maxWealth / 5) * (5 - i) / 1000000).toFixed(1);
+                ctx.fillText(`${value}M`, padding - 10, y + 4);
+            }
+            
+            // X-axis labels
+            ctx.textAlign = 'center';
+            for (let i = 0; i <= years; i += 5) {
+                const x = padding + (chartWidth / years) * i;
+                ctx.fillText(`${i}`, x, canvas.height - padding + 20);
+            }
+            
+            // Draw lines
+            function drawLine(data, color, label, isDashed = false) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                if (isDashed) {
+                    ctx.setLineDash([5, 5]);
+                } else {
+                    ctx.setLineDash([]);
+                }
+                
+                ctx.beginPath();
+                data.forEach((point, index) => {
+                    const x = padding + (chartWidth / years) * point.x;
+                    const y = padding + chartHeight - (point.y / maxWealth) * chartHeight;
+                    
+                    if (index === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                ctx.stroke();
+            }
+            
+            // Draw original trajectory
+            drawLine(originalData, '#e74c3c', 'Original Path', true);
+            
+            // Draw accelerated trajectory
+            drawLine(acceleratedData, '#27ae60', 'Accelerated Path');
+            
+            // Draw FI line
+            const fiNumber = (userData.assessment.income * 0.7) * 25;
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([10, 5]);
+            ctx.beginPath();
+            const fiY = padding + chartHeight - (fiNumber / maxWealth) * chartHeight;
+            ctx.moveTo(padding, fiY);
+            ctx.lineTo(canvas.width - padding, fiY);
+            ctx.stroke();
+            
+            // Legend
+            ctx.setLineDash([]);
+            const legendX = canvas.width - 200;
+            const legendY = padding + 20;
+            
+            // Original path
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(legendX, legendY, 20, 3);
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('Original Path', legendX + 30, legendY + 5);
+            
+            // Accelerated path
+            ctx.fillStyle = '#27ae60';
+            ctx.fillRect(legendX, legendY + 25, 20, 3);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Accelerated Path', legendX + 30, legendY + 30);
+            
+            // FI line
+            ctx.fillStyle = '#3498db';
+            ctx.fillRect(legendX, legendY + 50, 20, 3);
+            ctx.fillStyle = '#333';
+            ctx.fillText('FI Target', legendX + 30, legendY + 55);
+        }
+
+        // Download blueprint function
+        function downloadBlueprint() {
+            // Create a text summary of the blueprint
+            let blueprint = `WEALTH ACCELERATION BLUEPRINT
+Generated: ${new Date().toLocaleDateString()}
+
+CURRENT POSITION
+Age: ${userData.assessment.age}
+Annual Income: ${userData.assessment.income.toLocaleString()}
+Net Worth: ${userData.assessment.netWorth.toLocaleString()}
+Monthly Investment: ${userData.assessment.monthlyInvestment.toLocaleString()}
+
+ACCELERATION IMPACT
+Original Timeline to FI: ${userData.acceleration.originalYears} years
+Accelerated Timeline: ${userData.acceleration.acceleratedYears} years
+Time Saved: ${userData.acceleration.timeSaved} years
+Additional Wealth Created: ${(calculateAdditionalWealth() / 1000000).toFixed(1)}M
+
+KEY STRATEGIES
+1. Foundation Phase
+   - Build 6-month emergency fund
+   - Maximize tax-advantaged accounts
+   - Implement tax optimization strategies
+
+2. Growth Phase
+   - Optimize investment fees (<0.20%)
+   - Strategic asset allocation
+   - Income enhancement strategies
+
+3. Freedom Phase
+   - Develop passive income streams
+   - Implement withdrawal strategies
+   - Tax-efficient distribution planning
+
+NEXT STEPS
+Week 1-2: Foundation setup
+Week 3-4: Fee and tax optimization
+Month 2: Growth acceleration implementation
+Month 3-6: Momentum building and scaling
+
+Remember: Small optimizations compound into extraordinary results!`;
+
+            // Create download
+            const blob = new Blob([blueprint], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'wealth-acceleration-blueprint.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            // Set default values for better UX
+            document.getElementById('currentAge').value = 30;
+            document.getElementById('targetAge').value = 50;
+            
+            // Add smooth scrolling
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        }
+    </script>
+</body>
+</html>

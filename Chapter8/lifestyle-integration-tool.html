@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Integration System - 80/20 Money System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            color: #2c3e50;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(168,237,234,0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #7f8c8d;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dimension-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .dimension-btn {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #5d6d7e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dimension-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .dimension-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .dimension-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .dimension-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .dimension-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #5d6d7e;
+            font-size: 1.1rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e8e8e8;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .value-card:hover {
+            border-color: #667eea;
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .value-card.selected {
+            background: linear-gradient(135deg, #e8f0fe 0%, #f3e7fc 100%);
+            border-color: #667eea;
+        }
+
+        .value-card h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .value-card p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .priority-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .priority-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .priority-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .vision-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 22px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.1);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .freedom-account {
+            background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border: 2px solid #4fc3f7;
+            transition: all 0.3s ease;
+        }
+
+        .freedom-account h4 {
+            color: #0288d1;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .account-progress {
+            height: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4fc3f7 0%, #29b6f6 100%);
+            width: 0%;
+            transition: width 1.5s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .experience-card.adventure {
+            border-left-color: #ff6b6b;
+        }
+
+        .experience-card.learning {
+            border-left-color: #4ecdc4;
+        }
+
+        .experience-card.connection {
+            border-left-color: #ffe66d;
+        }
+
+        .experience-card.contribution {
+            border-left-color: #a8e6cf;
+        }
+
+        .impact-metric {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 1rem;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .impact-metric:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #667eea;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0.5rem 0;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .integration-score {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .integration-score::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .score-value {
+            font-size: 5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .score-label {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .action-item {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+            transition: all 0.3s ease;
+        }
+
+        .action-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .action-item h4 {
+            color: #c92a2a;
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: left;
+            border-radius: 10px;
+            padding: 1rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .dimension-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .dimension-btn {
+                width: 100%;
+            }
+            
+            .priority-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .celebration-banner {
+            background: linear-gradient(135deg, #ffd93d 0%, #ffb347 100%);
+            color: #2c3e50;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 10px 25px rgba(255, 179, 71, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .print-hide {
+            display: block;
+        }
+
+        @media print {
+            .print-hide {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lifestyle Integration System</h1>
+            <p class="subtitle">Transform Financial Success into Life Fulfillment</p>
+        </header>
+
+        <nav class="dimension-nav print-hide">
+            <button class="dimension-btn active" onclick="showDimension('values')">
+                <span>1. Values & Vision</span>
+            </button>
+            <button class="dimension-btn" onclick="showDimension('alignment')">
+                <span>2. Resource Alignment</span>
+            </button>
+            <button class="dimension-btn" onclick="showDimension('experiences')">
+                <span>3. Experiences</span>
+            </button>
+            <button class="dimension-btn" onclick="showDimension('impact')">
+                <span>4. Impact & Legacy</span>
+            </button>
+            <button class="dimension-btn" onclick="showDimension('wellbeing')">
+                <span>5. Well-Being</span>
+            </button>
+            <button class="dimension-btn" onclick="showDimension('blueprint')">
+                <span>6. Your Blueprint</span>
+            </button>
+        </nav>
+
+        <!-- Values & Vision Section -->
+        <section id="values" class="section active">
+            <div class="card">
+                <h2>Phase 1: Values and Vision Clarification</h2>
+                <p>The foundation of lifestyle integration is absolute clarity about what truly matters to you.</p>
+                
+                <h3>Core Values Inventory</h3>
+                <p>Select your 3-5 most important core values:</p>
+                
+                <div id="valuesSelection">
+                    <div class="value-card" onclick="toggleValue(this, 'Freedom')">
+                        <h4>Freedom</h4>
+                        <p>Autonomy to design each day and make independent choices</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Growth')">
+                        <h4>Growth</h4>
+                        <p>Continuous learning, development, and personal evolution</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Connection')">
+                        <h4>Connection</h4>
+                        <p>Deep relationships and meaningful bonds with others</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Contribution')">
+                        <h4>Contribution</h4>
+                        <p>Making a positive difference and leaving a legacy</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Adventure')">
+                        <h4>Adventure</h4>
+                        <p>New experiences, exploration, and embracing the unknown</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Security')">
+                        <h4>Security</h4>
+                        <p>Stability, safety, and predictability in life</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Creativity')">
+                        <h4>Creativity</h4>
+                        <p>Self-expression, innovation, and bringing ideas to life</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Health')">
+                        <h4>Health</h4>
+                        <p>Physical vitality, mental wellness, and energy</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Achievement')">
+                        <h4>Achievement</h4>
+                        <p>Accomplishing goals and reaching significant milestones</p>
+                    </div>
+                    <div class="value-card" onclick="toggleValue(this, 'Balance')">
+                        <h4>Balance</h4>
+                        <p>Harmony between different life areas and priorities</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <p><strong>Selected Values:</strong> <span id="selectedValues">None selected</span></p>
+                </div>
+
+                <h3 style="margin-top: 3rem;">Ideal Life Vision</h3>
+                <div class="form-group">
+                    <label>Describe your ideal average day <span class="tooltip">ℹ️<span class="tooltiptext">Think about how you'd spend your time if money wasn't a constraint. Include morning routines, work activities, relationships, and evening activities.</span></span></label>
+                    <textarea id="idealDay" placeholder="Morning: Wake naturally around 7am, exercise...
+Work: Spend 4 hours on meaningful projects...
+Afternoon: Long lunch with family...
+Evening: Reading, hobbies, quality time..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What does financial success mean to you?</label>
+                    <textarea id="financialSuccess" placeholder="For me, financial success means..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What legacy do you want to leave?</label>
+                    <textarea id="legacy" placeholder="I want to be remembered for..."></textarea>
+                </div>
+
+                <button onclick="saveVisionAndContinue()">Save Vision & Continue</button>
+            </div>
+        </section>
+
+        <!-- Resource Alignment Section -->
+        <section id="alignment" class="section">
+            <div class="card">
+                <h2>Phase 2: Strategic Resource Alignment</h2>
+                <p>Create direct connections between your financial resources and your life vision.</p>
+                
+                <h3>Freedom Account System</h3>
+                <p>Allocate resources to specific life vision elements:</p>
+                
+                <div class="form-group">
+                    <label>Monthly Income Available for Lifestyle Design</label>
+                    <input type="number" id="monthlyIncome" placeholder="Amount after essential expenses">
+                </div>
+
+                <div id="freedomAccounts">
+                    <div class="freedom-account">
+                        <h4>🌍 World Travel Account</h4>
+                        <label>Monthly Allocation</label>
+                        <input type="number" id="travelAllocation" placeholder="Monthly amount">
+                        <div class="account-progress">
+                            <div class="progress-fill" id="travelProgress">0%</div>
+                        </div>
+                        <p>Target: <input type="number" id="travelTarget" placeholder="Annual target" style="width: 150px; display: inline;"></p>
+                    </div>
+
+                    <div class="freedom-account">
+                        <h4>👨‍👩‍👧‍👦 Family Experience Account</h4>
+                        <label>Monthly Allocation</label>
+                        <input type="number" id="familyAllocation" placeholder="Monthly amount">
+                        <div class="account-progress">
+                            <div class="progress-fill" id="familyProgress">0%</div>
+                        </div>
+                        <p>Target: <input type="number" id="familyTarget" placeholder="Annual target" style="width: 150px; display: inline;"></p>
+                    </div>
+
+                    <div class="freedom-account">
+                        <h4>📚 Personal Growth Account</h4>
+                        <label>Monthly Allocation</label>
+                        <input type="number" id="growthAllocation" placeholder="Monthly amount">
+                        <div class="account-progress">
+                            <div class="progress-fill" id="growthProgress">0%</div>
+                        </div>
+                        <p>Target: <input type="number" id="growthTarget" placeholder="Annual target" style="width: 150px; display: inline;"></p>
+                    </div>
+
+                    <div class="freedom-account">
+                        <h4>💝 Strategic Giving Account</h4>
+                        <label>Monthly Allocation</label>
+                        <input type="number" id="givingAllocation" placeholder="Monthly amount">
+                        <div class="account-progress">
+                            <div class="progress-fill" id="givingProgress">0%</div>
+                        </div>
+                        <p>Target: <input type="number" id="givingTarget" placeholder="Annual target" style="width: 150px; display: inline;"></p>
+                    </div>
+
+                    <div class="freedom-account">
+                        <h4>🚀 Opportunity Account</h4>
+                        <label>Monthly Allocation</label>
+                        <input type="number" id="opportunityAllocation" placeholder="Monthly amount">
+                        <div class="account-progress">
+                            <div class="progress-fill" id="opportunityProgress">0%</div>
+                        </div>
+                        <p>Target: <input type="number" id="opportunityTarget" placeholder="Annual target" style="width: 150px; display: inline;"></p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <p><strong>Total Monthly Allocation:</strong> $<span id="totalAllocation">0</span></p>
+                    <p><strong>Remaining Available:</strong> $<span id="remainingIncome">0</span></p>
+                </div>
+
+                <button onclick="calculateAlignment()">Calculate Resource Alignment</button>
+            </div>
+
+            <div id="alignmentResults" class="card" style="display: none;">
+                <h3>Resource Alignment Analysis</h3>
+                <div id="alignmentMetrics"></div>
+            </div>
+        </section>
+
+        <!-- Experiences Section -->
+        <section id="experiences" class="section">
+            <div class="card">
+                <h2>Phase 3: Experience Implementation</h2>
+                <p>Transform abstract desires into concrete life experiences.</p>
+                
+                <h3>Experience Inventory</h3>
+                <p>List experiences you want to create in the next 12 months:</p>
+                
+                <div id="experienceList">
+                    <div class="experience-card adventure">
+                        <h4>Adventure Experiences</h4>
+                        <textarea id="adventureExperiences" placeholder="• Hike Machu Picchu
+• Learn to scuba dive
+• Road trip across country"></textarea>
+                    </div>
+
+                    <div class="experience-card learning">
+                        <h4>Learning Experiences</h4>
+                        <textarea id="learningExperiences" placeholder="• Master Spanish
+• Take cooking classes
+• Attend leadership workshop"></textarea>
+                    </div>
+
+                    <div class="experience-card connection">
+                        <h4>Connection Experiences</h4>
+                        <textarea id="connectionExperiences" placeholder="• Weekly date nights
+• Annual family reunion
+• Monthly friend gatherings"></textarea>
+                    </div>
+
+                    <div class="experience-card contribution">
+                        <h4>Contribution Experiences</h4>
+                        <textarea id="contributionExperiences" placeholder="• Volunteer monthly
+• Mentor someone
+• Create scholarship fund"></textarea>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Experience Scheduling</h3>
+                <div class="form-group">
+                    <label>How many significant experiences do you want per quarter?</label>
+                    <select id="experienceFrequency">
+                        <option value="1">1 major experience</option>
+                        <option value="2">2 major experiences</option>
+                        <option value="3">3 major experiences</option>
+                        <option value="4">4+ major experiences</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What typically prevents you from creating experiences?</label>
+                    <select id="experienceBarriers">
+                        <option value="">Select main barrier...</option>
+                        <option value="time">Lack of time</option>
+                        <option value="money">Financial constraints</option>
+                        <option value="planning">Poor planning</option>
+                        <option value="confidence">Lack of confidence</option>
+                        <option value="support">No support system</option>
+                    </select>
+                </div>
+
+                <button onclick="analyzeExperiences()">Analyze Experience Plan</button>
+            </div>
+
+            <div id="experienceResults" class="card" style="display: none;">
+                <h3>Experience Implementation Plan</h3>
+                <div id="experiencePlan"></div>
+            </div>
+        </section>
+
+        <!-- Impact & Legacy Section -->
+        <section id="impact" class="section">
+            <div class="card">
+                <h2>Phase 4: Contribution and Impact</h2>
+                <p>Transform abstract impact desires into systematic contribution.</p>
+                
+                <h3>Impact Design</h3>
+                <div class="form-group">
+                    <label>What cause or area do you want to impact most?</label>
+                    <select id="impactArea">
+                        <option value="">Select focus area...</option>
+                        <option value="education">Education Access</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="environment">Environmental Protection</option>
+                        <option value="poverty">Poverty Alleviation</option>
+                        <option value="arts">Arts & Culture</option>
+                        <option value="technology">Technology Access</option>
+                        <option value="community">Local Community</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferred contribution methods (select all that apply):</label>
+                    <div style="margin: 1rem 0;">
+                        <input type="checkbox" id="financialGiving" style="width: auto; margin-right: 0.5rem;">
+                        <label for="financialGiving" style="display: inline;">Financial Giving</label>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <input type="checkbox" id="volunteerTime" style="width: auto; margin-right: 0.5rem;">
+                        <label for="volunteerTime" style="display: inline;">Volunteer Time</label>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <input type="checkbox" id="skillSharing" style="width: auto; margin-right: 0.5rem;">
+                        <label for="skillSharing" style="display: inline;">Skill Sharing/Mentoring</label>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <input type="checkbox" id="socialEnterprise" style="width: auto; margin-right: 0.5rem;">
+                        <label for="socialEnterprise" style="display: inline;">Social Enterprise</label>
+                    </div>
+                </div>
+
+                <h3>Strategic Giving Plan</h3>
+                <div class="form-group">
+                    <label>Annual giving goal (% of income)</label>
+                    <select id="givingPercentage">
+                        <option value="1">1-2%</option>
+                        <option value="3">3-5%</option>
+                        <option value="7">6-10%</option>
+                        <option value="12">11-15%</option>
+                        <option value="20">16-20%</option>
+                        <option value="25">20%+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Legacy Vision</label>
+                    <textarea id="legacyVision" placeholder="In 20 years, I want to have created/contributed..."></textarea>
+                </div>
+
+                <button onclick="calculateImpact()">Design Impact Strategy</button>
+            </div>
+
+            <div id="impactResults" class="card" style="display: none;">
+                <h3>Your Impact Strategy</h3>
+                <div id="impactStrategy"></div>
+            </div>
+        </section>
+
+        <!-- Well-Being Section -->
+        <section id="wellbeing" class="section">
+            <div class="card">
+                <h2>Dimension 4: Well-Being Maximization</h2>
+                <p>Ensure your wealth supports comprehensive life wellness.</p>
+                
+                <h3>Well-Being Assessment</h3>
+                <p>Rate your current satisfaction in each area (1-10):</p>
+                
+                <div class="form-group">
+                    <label>Physical Vitality</label>
+                    <input type="range" id="physicalWellbeing" min="1" max="10" value="5" oninput="updateWellbeingDisplay('physical', this.value)">
+                    <span id="physicalDisplay">5</span>/10
+                </div>
+
+                <div class="form-group">
+                    <label>Mental Performance</label>
+                    <input type="range" id="mentalWellbeing" min="1" max="10" value="5" oninput="updateWellbeingDisplay('mental', this.value)">
+                    <span id="mentalDisplay">5</span>/10
+                </div>
+
+                <div class="form-group">
+                    <label>Emotional Wealth</label>
+                    <input type="range" id="emotionalWellbeing" min="1" max="10" value="5" oninput="updateWellbeingDisplay('emotional', this.value)">
+                    <span id="emotionalDisplay">5</span>/10
+                </div>
+
+                <div class="form-group">
+                    <label>Relationship Quality</label>
+                    <input type="range" id="relationshipWellbeing" min="1" max="10" value="5" oninput="updateWellbeingDisplay('relationship', this.value)">
+                    <span id="relationshipDisplay">5</span>/10
+                </div>
+
+                <div class="form-group">
+                    <label>Purpose Alignment</label>
+                    <input type="range" id="purposeWellbeing" min="1" max="10" value="5" oninput="updateWellbeingDisplay('purpose', this.value)">
+                    <span id="purposeDisplay">5</span>/10
+                </div>
+
+                <h3>Investment Priorities</h3>
+                <div class="form-group">
+                    <label>What would most improve your well-being?</label>
+                    <select id="wellbeingPriority">
+                        <option value="">Select priority...</option>
+                        <option value="health">Health optimization program</option>
+                        <option value="time">More free time</option>
+                        <option value="relationships">Deeper relationships</option>
+                        <option value="growth">Personal development</option>
+                        <option value="environment">Better living environment</option>
+                        <option value="purpose">Clearer life purpose</option>
+                    </select>
+                </div>
+
+                <button onclick="analyzeWellbeing()">Analyze Well-Being Strategy</button>
+            </div>
+
+            <div id="wellbeingResults" class="card" style="display: none;">
+                <h3>Well-Being Optimization Plan</h3>
+                <div id="wellbeingPlan"></div>
+            </div>
+        </section>
+
+        <!-- Blueprint Section -->
+        <section id="blueprint" class="section">
+            <div class="card">
+                <h2>Your Lifestyle Integration Blueprint</h2>
+                
+                <div class="integration-score">
+                    <p class="score-label">Lifestyle Integration Score</p>
+                    <p class="score-value" id="integrationScore">0</p>
+                    <p class="score-label">Out of 100</p>
+                </div>
+
+                <h3>Your Personalized Integration Plan</h3>
+                <div class="vision-timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Week 1-2: Values & Vision Foundation</h4>
+                            <div id="week1Actions"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Week 3-4: Resource Alignment</h4>
+                            <div id="week3Actions"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Month 2: Experience Implementation</h4>
+                            <div id="month2Actions"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Month 3+: Impact & Optimization</h4>
+                            <div id="month3Actions"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Key Metrics Dashboard</h3>
+                <div class="priority-grid">
+                    <div class="impact-metric">
+                        <p class="metric-label">Values Alignment</p>
+                        <p class="metric-value" id="valuesScore">0%</p>
+                    </div>
+                    <div class="impact-metric">
+                        <p class="metric-label">Resource Optimization</p>
+                        <p class="metric-value" id="resourceScore">0%</p>
+                    </div>
+                    <div class="impact-metric">
+                        <p class="metric-label">Experience Creation</p>
+                        <p class="metric-value" id="experienceScore">0%</p>
+                    </div>
+                    <div class="impact-metric">
+                        <p class="metric-label">Impact Readiness</p>
+                        <p class="metric-value" id="impactScore">0%</p>
+                    </div>
+                </div>
+
+                <h3>Priority Actions</h3>
+                <div class="action-grid" id="priorityActions">
+                    <!-- Actions will be populated here -->
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button onclick="window.print()" style="margin: 0.5rem;">Print Blueprint</button>
+                    <button onclick="downloadBlueprint()" style="margin: 0.5rem;">Download Summary</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Global variables to store user data
+        let userData = {
+            values: [],
+            vision: {},
+            alignment: {},
+            experiences: {},
+            impact: {},
+            wellbeing: {},
+            scores: {
+                values: 0,
+                resources: 0,
+                experiences: 0,
+                impact: 0,
+                wellbeing: 0,
+                total: 0
+            }
+        };
+
+        // Navigation function
+        function showDimension(dimensionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(dimensionId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.dimension-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // If showing blueprint, calculate final scores
+            if (dimensionId === 'blueprint') {
+                calculateFinalBlueprint();
+            }
+        }
+
+        // Values selection
+        function toggleValue(element, value) {
+            element.classList.toggle('selected');
+            
+            if (element.classList.contains('selected')) {
+                if (userData.values.length < 5) {
+                    userData.values.push(value);
+                } else {
+                    alert('Please select only 3-5 core values');
+                    element.classList.remove('selected');
+                    return;
+                }
+            } else {
+                userData.values = userData.values.filter(v => v !== value);
+            }
+            
+            document.getElementById('selectedValues').textContent = 
+                userData.values.length > 0 ? userData.values.join(', ') : 'None selected';
+        }
+
+        // Save vision and continue
+        function saveVisionAndContinue() {
+            if (userData.values.length < 3) {
+                alert('Please select at least 3 core values');
+                return;
+            }
+            
+            userData.vision = {
+                idealDay: document.getElementById('idealDay').value,
+                financialSuccess: document.getElementById('financialSuccess').value,
+                legacy: document.getElementById('legacy').value
+            };
+            
+            // Calculate values score
+            let score = 0;
+            if (userData.values.length >= 3) score += 30;
+            if (userData.vision.idealDay) score += 30;
+            if (userData.vision.financialSuccess) score += 20;
+            if (userData.vision.legacy) score += 20;
+            userData.scores.values = score;
+            
+            // Show success message
+            showNotification('Vision saved successfully!');
+            
+            // Move to next section
+            document.querySelector('[onclick*="alignment"]').click();
+        }
+
+        // Resource alignment calculations
+        function calculateAlignment() {
+            const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) || 0;
+            
+            const allocations = {
+                travel: parseFloat(document.getElementById('travelAllocation').value) || 0,
+                family: parseFloat(document.getElementById('familyAllocation').value) || 0,
+                growth: parseFloat(document.getElementById('growthAllocation').value) || 0,
+                giving: parseFloat(document.getElementById('givingAllocation').value) || 0,
+                opportunity: parseFloat(document.getElementById('opportunityAllocation').value) || 0
+            };
+            
+            const targets = {
+                travel: parseFloat(document.getElementById('travelTarget').value) || 0,
+                family: parseFloat(document.getElementById('familyTarget').value) || 0,
+                growth: parseFloat(document.getElementById('growthTarget').value) || 0,
+                giving: parseFloat(document.getElementById('givingTarget').value) || 0,
+                opportunity: parseFloat(document.getElementById('opportunityTarget').value) || 0
+            };
+            
+            // Calculate totals
+            const totalAllocation = Object.values(allocations).reduce((a, b) => a + b, 0);
+            const remaining = monthlyIncome - totalAllocation;
+            
+            document.getElementById('totalAllocation').textContent = totalAllocation.toFixed(0);
+            document.getElementById('remainingIncome').textContent = remaining.toFixed(0);
+            
+            // Update progress bars
+            updateProgressBar('travel', allocations.travel, targets.travel);
+            updateProgressBar('family', allocations.family, targets.family);
+            updateProgressBar('growth', allocations.growth, targets.growth);
+            updateProgressBar('giving', allocations.giving, targets.giving);
+            updateProgressBar('opportunity', allocations.opportunity, targets.opportunity);
+            
+            // Store data
+            userData.alignment = {
+                monthlyIncome,
+                allocations,
+                targets,
+                totalAllocation,
+                remaining
+            };
+            
+            // Calculate resource score
+            let score = 0;
+            if (totalAllocation > 0) score += 30;
+            if (totalAllocation / monthlyIncome > 0.2) score += 20;
+            if (remaining >= 0) score += 30;
+            if (Object.values(targets).some(t => t > 0)) score += 20;
+            userData.scores.resources = score;
+            
+            // Display results
+            displayAlignmentResults();
+        }
+
+        // Update progress bar
+        function updateProgressBar(account, monthly, annual) {
+            if (annual > 0) {
+                const progress = Math.min((monthly * 12 / annual) * 100, 100);
+                const bar = document.getElementById(`${account}Progress`);
+                bar.style.width = `${progress}%`;
+                bar.textContent = `${progress.toFixed(0)}%`;
+            }
+        }
+
+        // Display alignment results
+        function displayAlignmentResults() {
+            const resultsHTML = `
+                <div class="priority-grid">
+                    <div class="priority-item">
+                        <p class="priority-number">${userData.alignment.totalAllocation.toFixed(0)}</p>
+                        <p>Monthly Lifestyle Investment</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">${((userData.alignment.totalAllocation / userData.alignment.monthlyIncome) * 100).toFixed(0)}%</p>
+                        <p>Of Income Allocated</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">${(userData.alignment.totalAllocation * 12).toFixed(0)}</p>
+                        <p>Annual Lifestyle Budget</p>
+                    </div>
+                </div>
+                <div class="action-item" style="margin-top: 2rem;">
+                    <h4>Optimization Recommendations</h4>
+                    <ul>
+                        ${userData.alignment.remaining < 0 ? '<li>Reduce allocations to match available income</li>' : ''}
+                        ${userData.alignment.totalAllocation < userData.alignment.monthlyIncome * 0.2 ? '<li>Consider increasing lifestyle allocations for better balance</li>' : ''}
+                        ${!userData.alignment.allocations.giving ? '<li>Consider adding a giving/contribution allocation</li>' : ''}
+                        ${Object.values(userData.alignment.targets).every(t => t === 0) ? '<li>Set specific annual targets for each account</li>' : ''}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('alignmentMetrics').innerHTML = resultsHTML;
+            document.getElementById('alignmentResults').style.display = 'block';
+        }
+
+        // Analyze experiences
+        function analyzeExperiences() {
+            const experiences = {
+                adventure: document.getElementById('adventureExperiences').value,
+                learning: document.getElementById('learningExperiences').value,
+                connection: document.getElementById('connectionExperiences').value,
+                contribution: document.getElementById('contributionExperiences').value
+            };
+            
+            const frequency = parseInt(document.getElementById('experienceFrequency').value) || 1;
+            const barrier = document.getElementById('experienceBarriers').value;
+            
+            // Count experiences
+            let totalExperiences = 0;
+            Object.values(experiences).forEach(exp => {
+                if (exp) {
+                    totalExperiences += exp.split('\n').filter(line => line.trim()).length;
+                }
+            });
+            
+            userData.experiences = {
+                list: experiences,
+                frequency,
+                barrier,
+                total: totalExperiences
+            };
+            
+            // Calculate experience score
+            let score = 0;
+            if (totalExperiences > 0) score += 30;
+            if (totalExperiences >= 12) score += 20;
+            if (frequency >= 2) score += 25;
+            if (barrier) score += 25;
+            userData.scores.experiences = score;
+            
+            // Display experience plan
+            displayExperiencePlan();
+        }
+
+        // Display experience plan
+        function displayExperiencePlan() {
+            const quarterly = userData.experiences.frequency;
+            const annual = quarterly * 4;
+            
+            let barrierSolution = '';
+            switch(userData.experiences.barrier) {
+                case 'time':
+                    barrierSolution = 'Block time in calendar 3 months in advance';
+                    break;
+                case 'money':
+                    barrierSolution = 'Use Freedom Accounts to pre-fund experiences';
+                    break;
+                case 'planning':
+                    barrierSolution = 'Schedule quarterly planning sessions';
+                    break;
+                case 'confidence':
+                    barrierSolution = 'Start with smaller experiences and build up';
+                    break;
+                case 'support':
+                    barrierSolution = 'Find accountability partner or group';
+                    break;
+            }
+            
+            const planHTML = `
+                <div class="celebration-banner">
+                    <h3>🎉 ${userData.experiences.total} Experiences Planned!</h3>
+                    <p>That's ${annual} significant life experiences per year</p>
+                </div>
+                
+                <div class="priority-grid" style="margin-top: 2rem;">
+                    <div class="priority-item">
+                        <p class="priority-number">${quarterly}</p>
+                        <p>Per Quarter</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">${annual}</p>
+                        <p>Per Year</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">${(annual * 10).toFixed(0)}</p>
+                        <p>Next Decade</p>
+                    </div>
+                </div>
+                
+                ${barrierSolution ? `
+                <div class="action-item" style="margin-top: 2rem;">
+                    <h4>Overcoming Your Main Barrier</h4>
+                    <p><strong>Barrier:</strong> ${userData.experiences.barrier}</p>
+                    <p><strong>Solution:</strong> ${barrierSolution}</p>
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Implementation Schedule</h4>
+                    <ul>
+                        <li>Week 1: Choose first experience and book/schedule</li>
+                        <li>Week 2: Set up experience calendar for the year</li>
+                        <li>Week 3: Create experience fund if needed</li>
+                        <li>Week 4: Share plans with accountability partner</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('experiencePlan').innerHTML = planHTML;
+            document.getElementById('experienceResults').style.display = 'block';
+        }
+
+        // Calculate impact strategy
+        function calculateImpact() {
+            const impactArea = document.getElementById('impactArea').value;
+            const methods = {
+                financial: document.getElementById('financialGiving').checked,
+                volunteer: document.getElementById('volunteerTime').checked,
+                skills: document.getElementById('skillSharing').checked,
+                enterprise: document.getElementById('socialEnterprise').checked
+            };
+            const givingPercent = parseInt(document.getElementById('givingPercentage').value) || 1;
+            const legacyVision = document.getElementById('legacyVision').value;
+            
+            userData.impact = {
+                area: impactArea,
+                methods,
+                givingPercent,
+                legacyVision
+            };
+            
+            // Calculate impact score
+            let score = 0;
+            if (impactArea) score += 25;
+            if (Object.values(methods).some(m => m)) score += 25;
+            if (givingPercent >= 3) score += 25;
+            if (legacyVision) score += 25;
+            userData.scores.impact = score;
+            
+            // Display impact strategy
+            displayImpactStrategy();
+        }
+
+        // Display impact strategy
+        function displayImpactStrategy() {
+            const income = userData.alignment.monthlyIncome * 12 || 60000; // Default estimate
+            const annualGiving = income * (userData.impact.givingPercent / 100);
+            const lifetimeGiving = annualGiving * 30; // 30-year projection
+            
+            const methodsList = [];
+            if (userData.impact.methods.financial) methodsList.push('Financial Giving');
+            if (userData.impact.methods.volunteer) methodsList.push('Volunteer Time');
+            if (userData.impact.methods.skills) methodsList.push('Skill Sharing');
+            if (userData.impact.methods.enterprise) methodsList.push('Social Enterprise');
+            
+            const strategyHTML = `
+                <div class="impact-metric" style="background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);">
+                    <p class="metric-label">Annual Impact</p>
+                    <p class="metric-value">$${annualGiving.toFixed(0)}</p>
+                    <p>Plus ${methodsList.join(', ')}</p>
+                </div>
+                
+                <div class="priority-grid" style="margin-top: 2rem;">
+                    <div class="priority-item">
+                        <p class="priority-number">${userData.impact.givingPercent}%</p>
+                        <p>Of Income</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">$${(lifetimeGiving / 1000).toFixed(0)}k</p>
+                        <p>30-Year Impact</p>
+                    </div>
+                    <div class="priority-item">
+                        <p class="priority-number">${methodsList.length}</p>
+                        <p>Impact Methods</p>
+                    </div>
+                </div>
+                
+                <div class="action-item" style="margin-top: 2rem;">
+                    <h4>Your Impact Focus: ${userData.impact.area || 'Not selected'}</h4>
+                    <p>${userData.impact.legacyVision || 'Define your legacy vision to create lasting impact'}</p>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Research 3 organizations in your focus area</li>
+                        <li>Set up automatic monthly giving</li>
+                        ${userData.impact.methods.volunteer ? '<li>Schedule first volunteer session</li>' : ''}
+                        ${userData.impact.methods.skills ? '<li>Identify mentoring opportunity</li>' : ''}
+                        <li>Create impact tracking system</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('impactStrategy').innerHTML = strategyHTML;
+            document.getElementById('impactResults').style.display = 'block';
+        }
+
+        // Update wellbeing display
+        function updateWellbeingDisplay(category, value) {
+            document.getElementById(`${category}Display`).textContent = value;
+        }
+
+        // Analyze wellbeing
+        function analyzeWellbeing() {
+            const scores = {
+                physical: parseInt(document.getElementById('physicalWellbeing').value),
+                mental: parseInt(document.getElementById('mentalWellbeing').value),
+                emotional: parseInt(document.getElementById('emotionalWellbeing').value),
+                relationship: parseInt(document.getElementById('relationshipWellbeing').value),
+                purpose: parseInt(document.getElementById('purposeWellbeing').value)
+            };
+            
+            const priority = document.getElementById('wellbeingPriority').value;
+            const average = Object.values(scores).reduce((a, b) => a + b, 0) / 5;
+            
+            userData.wellbeing = {
+                scores,
+                priority,
+                average
+            };
+            
+            // Calculate wellbeing score
+            userData.scores.wellbeing = average * 10; // Convert to percentage
+            
+            // Display wellbeing plan
+            displayWellbeingPlan();
+        }
+
+        // Display wellbeing plan
+        function displayWellbeingPlan() {
+            const lowest = Object.entries(userData.wellbeing.scores)
+                .sort((a, b) => a[1] - b[1])[0];
+            
+            let priorityAction = '';
+            switch(userData.wellbeing.priority) {
+                case 'health':
+                    priorityAction = 'Invest in personal trainer, nutritionist, or health coach';
+                    break;
+                case 'time':
+                    priorityAction = 'Explore ways to buy back time (delegation, automation)';
+                    break;
+                case 'relationships':
+                    priorityAction = 'Schedule regular quality time with loved ones';
+                    break;
+                case 'growth':
+                    priorityAction = 'Enroll in courses, hire coach, attend workshops';
+                    break;
+                case 'environment':
+                    priorityAction = 'Optimize living/working spaces for wellbeing';
+                    break;
+                case 'purpose':
+                    priorityAction = 'Work with coach to clarify life purpose';
+                    break;
+            }
+            
+            const planHTML = `
+                <div class="integration-score" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                    <p class="score-label">Overall Well-Being Score</p>
+                    <p class="score-value">${userData.wellbeing.average.toFixed(1)}</p>
+                    <p class="score-label">Out of 10</p>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Well-Being Analysis</h4>
+                    <ul>
+                        <li><strong>Strongest Area:</strong> ${Object.entries(userData.wellbeing.scores)
+                            .sort((a, b) => b[1] - a[1])[0][0]} (${Object.entries(userData.wellbeing.scores)
+                            .sort((a, b) => b[1] - a[1])[0][1]}/10)</li>
+                        <li><strong>Needs Attention:</strong> ${lowest[0]} (${lowest[1]}/10)</li>
+                        <li><strong>Priority Focus:</strong> ${userData.wellbeing.priority || 'Not selected'}</li>
+                    </ul>
+                </div>
+                
+                ${priorityAction ? `
+                <div class="action-item" style="margin-top: 2rem;">
+                    <h4>Priority Action</h4>
+                    <p>${priorityAction}</p>
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 2rem;">
+                    <h4>30-Day Well-Being Plan</h4>
+                    <ul>
+                        <li>Week 1: Assess and plan improvements for lowest area</li>
+                        <li>Week 2: Implement one daily habit for improvement</li>
+                        <li>Week 3: Track progress and adjust approach</li>
+                        <li>Week 4: Evaluate results and plan next phase</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('wellbeingPlan').innerHTML = planHTML;
+            document.getElementById('wellbeingResults').style.display = 'block';
+        }
+
+        // Calculate final blueprint
+        function calculateFinalBlueprint() {
+            // Calculate total integration score
+            const totalScore = Math.round(
+                (userData.scores.values * 0.2) +
+                (userData.scores.resources * 0.2) +
+                (userData.scores.experiences * 0.2) +
+                (userData.scores.impact * 0.2) +
+                (userData.scores.wellbeing * 0.2)
+            );
+            
+            userData.scores.total = totalScore;
+            
+            // Update displays
+            document.getElementById('integrationScore').textContent = totalScore;
+            document.getElementById('valuesScore').textContent = userData.scores.values + '%';
+            document.getElementById('resourceScore').textContent = userData.scores.resources + '%';
+            document.getElementById('experienceScore').textContent = userData.scores.experiences + '%';
+            document.getElementById('impactScore').textContent = userData.scores.impact + '%';
+            
+            // Generate timeline actions
+            generateTimelineActions();
+            
+            // Generate priority actions
+            generatePriorityActions();
+        }
+
+        // Generate timeline actions
+        function generateTimelineActions() {
+            // Week 1-2 Actions
+            let week1HTML = '<ul>';
+            if (userData.values.length > 0) {
+                week1HTML += '<li>Review and refine your ' + userData.values.length + ' core values</li>';
+            }
+            if (userData.vision.idealDay) {
+                week1HTML += '<li>Create visual representation of ideal day</li>';
+            }
+            week1HTML += '<li>Share vision with accountability partner</li>';
+            week1HTML += '</ul>';
+            document.getElementById('week1Actions').innerHTML = week1HTML;
+            
+            // Week 3-4 Actions
+            let week3HTML = '<ul>';
+            if (userData.alignment.totalAllocation > 0) {
+                week3HTML += '<li>Set up ' + Object.keys(userData.alignment.allocations).length + ' Freedom Accounts</li>';
+            }
+            week3HTML += '<li>Automate monthly transfers</li>';
+            week3HTML += '<li>Create spending guidelines for each account</li>';
+            week3HTML += '</ul>';
+            document.getElementById('week3Actions').innerHTML = week3HTML;
+            
+            // Month 2 Actions
+            let month2HTML = '<ul>';
+            if (userData.experiences.total > 0) {
+                month2HTML += '<li>Schedule first ' + userData.experiences.frequency + ' quarterly experiences</li>';
+            }
+            month2HTML += '<li>Block time in calendar for experiences</li>';
+            month2HTML += '<li>Create experience tracking system</li>';
+            month2HTML += '</ul>';
+            document.getElementById('month2Actions').innerHTML = month2HTML;
+            
+            // Month 3+ Actions
+            let month3HTML = '<ul>';
+            if (userData.impact.area) {
+                month3HTML += '<li>Implement ' + userData.impact.area + ' impact strategy</li>';
+            }
+            if (userData.impact.givingPercent > 0) {
+                month3HTML += '<li>Set up automatic giving of ' + userData.impact.givingPercent + '% of income</li>';
+            }
+            month3HTML += '<li>Review and optimize all systems</li>';
+            month3HTML += '<li>Plan next quarter experiences and goals</li>';
+            month3HTML += '</ul>';
+            document.getElementById('month3Actions').innerHTML = month3HTML;
+        }
+
+        // Generate priority actions
+        function generatePriorityActions() {
+            let actionsHTML = '';
+            const actions = [];
+            
+            // Values-based actions
+            if (userData.scores.values < 50) {
+                actions.push({
+                    title: 'Complete Values Clarification',
+                    description: 'Finish selecting core values and creating life vision',
+                    priority: 'High'
+                });
+            }
+            
+            // Resource alignment actions
+            if (userData.scores.resources < 50) {
+                actions.push({
+                    title: 'Set Up Freedom Accounts',
+                    description: 'Create automated funding for life priorities',
+                    priority: 'High'
+                });
+            }
+            
+            // Experience actions
+            if (userData.experiences.total < 12) {
+                actions.push({
+                    title: 'Plan More Experiences',
+                    description: 'Target at least 12 meaningful experiences annually',
+                    priority: 'Medium'
+                });
+            }
+            
+            // Impact actions
+            if (!userData.impact.area) {
+                actions.push({
+                    title: 'Define Impact Focus',
+                    description: 'Choose specific area for contribution and legacy',
+                    priority: 'Medium'
+                });
+            }
+            
+            // Wellbeing actions
+            if (userData.wellbeing.average < 7) {
+                actions.push({
+                    title: 'Improve Well-Being Score',
+                    description: 'Focus on lowest scoring wellbeing areas',
+                    priority: 'High'
+                });
+            }
+            
+            // Generate HTML for actions
+            actions.forEach(action => {
+                const priorityColor = action.priority === 'High' ? '#ff6b6b' : '#ffd93d';
+                actionsHTML += `
+                    <div class="action-item" style="border-left-color: ${priorityColor};">
+                        <h4>${action.title}</h4>
+                        <p>${action.description}</p>
+                        <p><strong>Priority:</strong> ${action.priority}</p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('priorityActions').innerHTML = actionsHTML;
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Download blueprint
+        function downloadBlueprint() {
+            let blueprint = `LIFESTYLE INTEGRATION BLUEPRINT
+Generated: ${new Date().toLocaleDateString()}
+
+INTEGRATION SCORE: ${userData.scores.total}/100
+
+CORE VALUES
+${userData.values.join(', ')}
+
+VISION SUMMARY
+Ideal Day: ${userData.vision.idealDay || 'Not defined'}
+Financial Success Means: ${userData.vision.financialSuccess || 'Not defined'}
+Legacy Vision: ${userData.vision.legacy || 'Not defined'}
+
+RESOURCE ALIGNMENT
+Monthly Lifestyle Investment: ${userData.alignment.totalAllocation || 0}
+Percentage of Income: ${userData.alignment.monthlyIncome ? 
+    ((userData.alignment.totalAllocation / userData.alignment.monthlyIncome) * 100).toFixed(0) : 0}%
+
+Freedom Accounts:
+- Travel: ${userData.alignment.allocations?.travel || 0}/month
+- Family: ${userData.alignment.allocations?.family || 0}/month
+- Growth: ${userData.alignment.allocations?.growth || 0}/month
+- Giving: ${userData.alignment.allocations?.giving || 0}/month
+- Opportunity: ${userData.alignment.allocations?.opportunity || 0}/month
+
+EXPERIENCE PLAN
+Total Experiences Planned: ${userData.experiences.total || 0}
+Quarterly Target: ${userData.experiences.frequency || 0}
+Annual Target: ${(userData.experiences.frequency || 0) * 4}
+
+IMPACT STRATEGY
+Focus Area: ${userData.impact.area || 'Not selected'}
+Giving Target: ${userData.impact.givingPercent || 0}% of income
+Methods: ${Object.entries(userData.impact.methods || {})
+    .filter(([k, v]) => v)
+    .map(([k]) => k)
+    .join(', ') || 'None selected'}
+
+WELL-BEING SCORES
+Physical: ${userData.wellbeing.scores?.physical || 0}/10
+Mental: ${userData.wellbeing.scores?.mental || 0}/10
+Emotional: ${userData.wellbeing.scores?.emotional || 0}/10
+Relationships: ${userData.wellbeing.scores?.relationship || 0}/10
+Purpose: ${userData.wellbeing.scores?.purpose || 0}/10
+Average: ${userData.wellbeing.average?.toFixed(1) || 0}/10
+
+NEXT STEPS
+1. Week 1-2: Complete values clarification and vision setting
+2. Week 3-4: Set up Freedom Accounts and automation
+3. Month 2: Schedule and book first experiences
+4. Month 3+: Implement impact strategy and optimize systems
+
+Remember: True wealth is measured not just in financial assets, but in the life those assets allow you to create.`;
+
+            // Create download
+            const blob = new Blob([blueprint], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lifestyle-integration-blueprint.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize on load
+        window.onload = function() {
+            // Add smooth scrolling
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            // Set default values for better UX
+            document.getElementById('monthlyIncome').placeholder = 'e.g., 2000';
+            document.getElementById('travelTarget').placeholder = 'e.g., 5000';
+            document.getElementById('familyTarget').placeholder = 'e.g., 3000';
+            document.getElementById('growthTarget').placeholder = 'e.g., 2000';
+            document.getElementById('givingTarget').placeholder = 'e.g., 2400';
+            document.getElementById('opportunityTarget').placeholder = 'e.g., 3000';
+        }
+    </script>
+</body>
+</html>
